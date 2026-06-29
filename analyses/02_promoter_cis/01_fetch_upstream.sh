@@ -127,7 +127,7 @@ if len(results) < len(genes):
 # 3ª tentativa: coordenadas hardcoded ITAG4.0 (fallback final)
 ITAG4_COORDS = {
     "Solyc02g072250": ("SL4.0ch02", 48953640, 48957800, "+"),
-    "Solyc02g092040": ("SL4.0ch02", 58232000, 58236500, "-"),
+    "Solyc02g092040": ("SL4.0ch02", 50800000, 50804000, "-"),
     "Solyc03g112680": ("SL4.0ch03", 62891000, 62895000, "+"),
     "Solyc05g009990": ("SL4.0ch05",  4820000,  4824000, "-"),
     "Solyc05g055190": ("SL4.0ch05", 33821000, 33825000, "+"),

@@ -1,0 +1,885 @@
+Sequence	Signal	Location	Strand	Seq	Function
+Solyc03g112680	AAGAA-motif	3626	-	GAAAGAA	
+Solyc02g072250	AAGAA-motif	8758	-	GAAAGAA	
+Solyc12g042760	AAGAA-motif	6818	+	GAAAGAA	
+Solyc02g092040	AAGAA-motif	11450	-	GAAAGAA	
+Solyc05g009990	AAGAA-motif	4106	-	GAAAGAA	
+Solyc02g072250	AAGAA-motif	9536	+	GAAAGAA	
+Solyc12g042760	AAGAA-motif	6887	-	GAAAGAA	
+Solyc05g055190	ABRE	174	-	ACGTG	cis-acting element involved in the abscisic acid responsiveness
+Solyc05g009990	ABRE	5336	-	ACGTG	cis-acting element involved in the abscisic acid responsiveness
+Solyc05g009990	ABRE	4373	+	ACGTG	cis-acting element involved in the abscisic acid responsiveness
+Solyc02g092040	ABRE	11531	+	ACGTG	cis-acting element involved in the abscisic acid responsiveness
+Solyc05g055190	ABRE	491	-	ACGTG	cis-acting element involved in the abscisic acid responsiveness
+Solyc05g009990	ABRE	5625	+	ACGTG	cis-acting element involved in the abscisic acid responsiveness
+Solyc05g009990	ABRE	5094	+	ACGTG	cis-acting element involved in the abscisic acid responsiveness
+Solyc05g009990	ABRE3a	4372	+	TACGTG	
+Solyc05g009990	ABRE4	4372	-	CACGTA	
+Solyc12g042760	AC-I	6972	-	(T/C)C(T/C)(C/T)ACC(T/C)ACC	
+Solyc05g055190	ACE	489	-	CTAACGTATT	cis-acting element involved in light responsiveness
+Solyc02g092040	ACE	11221	+	CTAACGTATT	cis-acting element involved in light responsiveness
+Solyc12g042760	ACE	6153	-	CTAACGTATT	cis-acting element involved in light responsiveness
+Solyc05g055190	AE-box	154	+	AGAAACAA	part of a module for light response
+Solyc05g009990	AE-box	5261	-	AGAAACAA	part of a module for light response
+Solyc03g112680	AE-box	3386	+	AGAAACTT	part of a module for light response
+Solyc10g007830	ARE	12383	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc02g092040	ARE	11597	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc03g112680	ARE	2062	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc12g042760	ARE	7933	+	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc10g007830	ARE	12330	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc02g092040	ARE	11440	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc05g009990	ARE	4300	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc02g092040	ARE	10863	+	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc02g092040	ARE	11562	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc03g112680	ARE	3012	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc12g042760	ARE	6681	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc02g092040	ARE	10596	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc02g092040	ARE	11278	-	AAACCA	cis-acting regulatory element essential for the anaerobic induction
+Solyc05g009990	AT~TATA-box	5798	+	TATATA	
+Solyc10g007830	AT~TATA-box	13616	-	TATATA	
+Solyc12g042760	AT~TATA-box	7713	-	TATATA	
+Solyc10g007830	AT~TATA-box	13618	-	TATATA	
+Solyc12g042760	AT~TATA-box	6769	+	TATATA	
+Solyc02g072250	AT~TATA-box	9193	-	TATATA	
+Solyc12g042760	AT~TATA-box	7329	-	TATATA	
+Solyc12g042760	AT~TATA-box	6267	+	TATATA	
+Solyc12g042760	AT~TATA-box	6400	+	TATATA	
+Solyc05g009990	AuxRE	4718	-	TGTCTCAATAAG	part of an auxin-responsive element
+Solyc10g007830	AuxRR-core	13896	-	GGTCCAT	cis-acting regulatory element involved in auxin responsiveness
+Solyc03g112680	Box 4	3162	+	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc02g092040	Box 4	11479	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc02g092040	Box 4	10392	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc10g007830	Box 4	13662	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc02g092040	Box 4	11992	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc02g092040	Box 4	11568	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc10g007830	Box 4	12479	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc02g072250	Box 4	9404	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc02g072250	Box 4	9701	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc12g042760	Box 4	6395	+	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc02g072250	Box 4	8098	-	ATTAAT	part of a conserved DNA module involved in light responsiveness
+Solyc12g042760	Box II	6282	-	TGGTAATAA	part of a light responsive element
+Solyc05g009990	Box III	5889	-	atCATTTTCACt	protein binding site
+Solyc02g092040	CAAT-box	11194	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	10750	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	10594	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	10489	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8980	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8732	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8513	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8472	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8184	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8095	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	7890	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6917	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3903	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	4910	+	CAAT	
+Solyc05g009990	CAAT-box	5529	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5345	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	9826	+	CAAT	
+Solyc05g009990	CAAT-box	4489	-	CAAT	
+Solyc05g009990	CAAT-box	4386	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6067	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6377	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5789	-	CAAT	
+Solyc05g009990	CAAT-box	4763	-	CAAT	
+Solyc05g009990	CAAT-box	4080	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	9145	-	CAAT	
+Solyc05g009990	CAAT-box	5084	-	CAAT	
+Solyc12g042760	CAAT-box	7242	-	CAAT	
+Solyc05g009990	CAAT-box	4677	+	CAAT	
+Solyc02g092040	CAAT-box	11195	+	CAAT	
+Solyc05g009990	CAAT-box	5704	-	CAAT	
+Solyc12g042760	CAAT-box	6452	-	CAAT	
+Solyc05g009990	CAAT-box	4465	+	CAAT	
+Solyc02g072250	CAAT-box	8986	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5479	+	CAAT	
+Solyc12g042760	CAAT-box	7477	-	CAAT	
+Solyc05g009990	CAAT-box	4900	+	CAAT	
+Solyc05g009990	CAAT-box	4063	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	9999	-	CAAT	
+Solyc05g009990	CAAT-box	5918	-	CAAT	
+Solyc12g042760	CAAT-box	6059	+	CAAT	
+Solyc12g042760	CAAT-box	6081	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6058	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	4548	-	CAAT	
+Solyc05g009990	CAAT-box	5071	+	CAAT	
+Solyc02g072250	CAAT-box	9484	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	4406	-	CAAT	
+Solyc05g009990	CAAT-box	4899	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	4332	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8326	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5670	-	CAAT	
+Solyc02g092040	CAAT-box	10568	+	CAAT	
+Solyc05g009990	CAAT-box	4679	-	CAAT	
+Solyc12g042760	CAAT-box	6545	-	CAAT	
+Solyc02g072250	CAAT-box	8620	-	CAAT	
+Solyc12g042760	CAAT-box	7319	-	CAAT	
+Solyc05g009990	CAAT-box	5380	+	CAAT	
+Solyc05g009990	CAAT-box	4432	-	CAAT	
+Solyc02g092040	CAAT-box	10163	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6231	-	CAAT	
+Solyc02g072250	CAAT-box	9279	+	CAAT	
+Solyc12g042760	CAAT-box	7891	+	CAAT	
+Solyc05g009990	CAAT-box	5854	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5260	-	CAAT	
+Solyc02g092040	CAAT-box	10867	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6986	+	CAAT	
+Solyc05g009990	CAAT-box	4902	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3916	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8748	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	7860	-	CAAT	
+Solyc05g009990	CAAT-box	5711	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5442	-	CAAT	
+Solyc02g072250	CAAT-box	9928	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6051	+	CAAT	
+Solyc02g072250	CAAT-box	9682	-	CAAT	
+Solyc02g072250	CAAT-box	8185	+	CAAT	
+Solyc05g009990	CAAT-box	4503	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5949	-	CAAT	
+Solyc02g092040	CAAT-box	10761	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6508	+	CAAT	
+Solyc05g009990	CAAT-box	4975	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5530	+	CAAT	
+Solyc05g009990	CAAT-box	5346	+	CAAT	
+Solyc05g009990	CAAT-box	5750	-	CAAT	
+Solyc02g072250	CAAT-box	8450	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	7259	-	CAAT	
+Solyc02g092040	CAAT-box	10316	+	CAAT	
+Solyc12g042760	CAAT-box	6146	+	CAAT	
+Solyc12g042760	CAAT-box	6050	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	9264	+	CAAT	
+Solyc12g042760	CAAT-box	7942	-	CAAT	
+Solyc02g092040	CAAT-box	11305	-	CAAT	
+Solyc05g009990	CAAT-box	5089	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5379	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5070	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5659	-	CAAT	
+Solyc05g009990	CAAT-box	5161	+	CAAT	
+Solyc12g042760	CAAT-box	6870	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	5866	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	4380	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	9049	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	7551	-	CAAT	
+Solyc02g092040	CAAT-box	10018	-	CAAT	
+Solyc12g042760	CAAT-box	6272	-	CAAT	
+Solyc05g009990	CAAT-box	4789	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	4081	+	CAAT	
+Solyc05g009990	CAAT-box	4581	-	CAAT	
+Solyc05g009990	CAAT-box	4387	+	CAAT	
+Solyc02g072250	CAAT-box	9638	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8286	+	CAAT	
+Solyc02g092040	CAAT-box	10575	+	CAAT	
+Solyc12g042760	CAAT-box	6657	+	CAAT	
+Solyc02g072250	CAAT-box	8632	-	CAAT	
+Solyc12g042760	CAAT-box	7462	-	CAAT	
+Solyc02g092040	CAAT-box	10490	+	CAAT	
+Solyc05g009990	CAAT-box	4872	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3964	-	CAAT	
+Solyc12g042760	CAAT-box	6053	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	9324	+	CAAT	
+Solyc12g042760	CAAT-box	7881	-	CAAT	
+Solyc05g009990	CAAT-box	4556	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g009990	CAAT-box	4341	-	CAAT	
+Solyc05g009990	CAAT-box	4721	-	CAAT	
+Solyc02g092040	CAAT-box	11052	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	7062	-	CAAT	
+Solyc02g072250	CAAT-box	8905	-	CAAT	
+Solyc12g042760	CAAT-box	7821	+	CAAT	
+Solyc02g072250	CAAT-box	9777	+	CAAT	
+Solyc12g042760	CAAT-box	6148	-	CAAT	
+Solyc05g055190	CAAT-box	44	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	2430	+	CAAT	
+Solyc02g072250	CAAT-box	9707	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8096	+	CAAT	
+Solyc02g092040	CAAT-box	10624	+	CAAT	
+Solyc05g055190	CAAT-box	933	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3480	-	CAAT	
+Solyc05g055190	CAAT-box	643	+	CAAT	
+Solyc03g112680	CAAT-box	3034	+	CAAT	
+Solyc05g055190	CAAT-box	1928	+	CAAT	
+Solyc12g042760	CAAT-box	6425	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3723	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	218	+	CAAT	
+Solyc03g112680	CAAT-box	2693	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	1440	+	CAAT	
+Solyc03g112680	CAAT-box	3674	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	889	-	CAAT	
+Solyc03g112680	CAAT-box	3410	-	CAAT	
+Solyc03g112680	CAAT-box	2351	+	CAAT	
+Solyc03g112680	CAAT-box	3893	-	CAAT	
+Solyc05g055190	CAAT-box	187	+	CAAT	
+Solyc03g112680	CAAT-box	2663	-	CAAT	
+Solyc05g055190	CAAT-box	1033	+	CAAT	
+Solyc03g112680	CAAT-box	3537	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	684	+	CAAT	
+Solyc03g112680	CAAT-box	3265	-	CAAT	
+Solyc03g112680	CAAT-box	2252	+	CAAT	
+Solyc03g112680	CAAT-box	3763	+	CAAT	
+Solyc05g055190	CAAT-box	522	+	CAAT	
+Solyc03g112680	CAAT-box	2922	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	1742	+	CAAT	
+Solyc03g112680	CAAT-box	3638	-	CAAT	
+Solyc05g055190	CAAT-box	910	+	CAAT	
+Solyc03g112680	CAAT-box	3472	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	2429	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3829	-	CAAT	
+Solyc05g055190	CAAT-box	146	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	2543	-	CAAT	
+Solyc05g055190	CAAT-box	995	-	CAAT	
+Solyc03g112680	CAAT-box	3516	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	579	+	CAAT	
+Solyc03g112680	CAAT-box	3130	-	CAAT	
+Solyc05g055190	CAAT-box	1936	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3716	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	226	+	CAAT	
+Solyc03g112680	CAAT-box	2902	+	CAAT	
+Solyc05g055190	CAAT-box	1741	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3538	+	CAAT	
+Solyc05g055190	CAAT-box	698	+	CAAT	
+Solyc03g112680	CAAT-box	3270	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	2303	-	CAAT	
+Solyc03g112680	CAAT-box	3726	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	149	-	CAAT	
+Solyc03g112680	CAAT-box	2691	+	CAAT	
+Solyc05g055190	CAAT-box	1439	+	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc03g112680	CAAT-box	3000	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	438	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc05g055190	CAAT-box	1871	+	CAAT	
+Solyc02g072250	CAAT-box	8562	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	7089	-	CAAT	
+Solyc02g092040	CAAT-box	10293	-	CAAT	
+Solyc05g009990	CAAT-box	5963	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	9168	-	CAAT	
+Solyc12g042760	CAAT-box	7937	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	11524	-	CAAT	
+Solyc12g042760	CAAT-box	6708	-	CAAT	
+Solyc02g072250	CAAT-box	8565	-	CAAT	
+Solyc12g042760	CAAT-box	7482	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	10009	+	CAAT	
+Solyc05g009990	CAAT-box	5972	-	CAAT	
+Solyc02g072250	CAAT-box	9557	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8271	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	10626	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6553	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	8669	+	CAAT	
+Solyc12g042760	CAAT-box	7399	-	CAAT	
+Solyc02g092040	CAAT-box	10471	-	CAAT	
+Solyc12g042760	CAAT-box	6918	+	CAAT	
+Solyc02g072250	CAAT-box	9298	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	7630	+	CAAT	
+Solyc02g092040	CAAT-box	11183	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc12g042760	CAAT-box	6528	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g072250	CAAT-box	9589	-	CAAT	
+Solyc12g042760	CAAT-box	7268	-	CAAT	
+Solyc02g072250	CAAT-box	9941	+	CAAT	
+Solyc12g042760	CAAT-box	6647	+	CAAT	
+Solyc02g072250	CAAT-box	9214	-	CAAT	
+Solyc12g042760	CAAT-box	7466	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	10671	+	CAAT	
+Solyc02g072250	CAAT-box	9432	+	CAAT	
+Solyc02g092040	CAAT-box	10077	+	CAAT	
+Solyc02g092040	CAAT-box	11537	-	CAAT	
+Solyc02g092040	CAAT-box	11575	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	11642	-	CAAT	
+Solyc02g092040	CAAT-box	11651	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	11654	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	11692	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	11742	+	CAAT	
+Solyc02g092040	CAAT-box	11748	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	11766	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc02g092040	CAAT-box	11816	-	CAAT	
+Solyc02g092040	CAAT-box	11865	+	CAAT	
+Solyc02g092040	CAAT-box	11897	+	CAAT	
+Solyc02g092040	CAAT-box	11996	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12089	-	CAAT	
+Solyc10g007830	CAAT-box	12109	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12143	-	CAAT	
+Solyc10g007830	CAAT-box	12160	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12204	+	CAAT	
+Solyc10g007830	CAAT-box	12222	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12236	+	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12250	+	CAAT	
+Solyc10g007830	CAAT-box	12307	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12428	+	CAAT	
+Solyc10g007830	CAAT-box	12506	-	CAAT	
+Solyc10g007830	CAAT-box	12564	-	CAAT	
+Solyc10g007830	CAAT-box	12688	-	CAAT	
+Solyc10g007830	CAAT-box	12799	-	CAAT	
+Solyc10g007830	CAAT-box	12828	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12885	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12915	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	12957	-	CAAT	
+Solyc10g007830	CAAT-box	12993	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	13168	-	CAAT	
+Solyc10g007830	CAAT-box	13200	+	CAAT	
+Solyc10g007830	CAAT-box	13223	+	CAAT	
+Solyc10g007830	CAAT-box	13238	-	CAAT	
+Solyc10g007830	CAAT-box	13308	+	CAAT	
+Solyc10g007830	CAAT-box	13312	+	CAAT	
+Solyc10g007830	CAAT-box	13355	+	CAAT	
+Solyc10g007830	CAAT-box	13357	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	13478	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	13502	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	13511	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	13516	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	13559	-	CAAT	
+Solyc10g007830	CAAT-box	13568	-	CCAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	13632	-	CAAT	
+Solyc10g007830	CAAT-box	13653	+	CAAT	
+Solyc10g007830	CAAT-box	13655	-	CAAAT	common cis-acting element in promoter and enhancer regions
+Solyc10g007830	CAAT-box	13763	-	CAAT	
+Solyc10g007830	CAAT-box	13803	+	CAAT	
+Solyc02g092040	CAG-motif	11658	-	GAAAGGCAGAC	part of a light response element
+Solyc02g072250	CAT-box	8352	+	GCCACT	cis-acting regulatory element related to meristem expression
+Solyc02g072250	CAT-box	9041	+	GCCACT	cis-acting regulatory element related to meristem expression
+Solyc05g009990	CAT-box	5010	-	GCCACT	cis-acting regulatory element related to meristem expression
+Solyc02g072250	CAT-box	9418	+	GCCACT	cis-acting regulatory element related to meristem expression
+Solyc10g007830	CCAAT-box	12079	+	CAACGG	MYBHv1 binding site
+Solyc02g092040	CCAAT-box	10647	+	CAACGG	MYBHv1 binding site
+Solyc05g055190	CCAAT-box	1901	+	CAACGG	MYBHv1 binding site
+Solyc02g092040	CGTCA-motif	11529	-	CGTCA	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc12g042760	CGTCA-motif	6566	+	CGTCA	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc05g009990	CGTCA-motif	5092	-	CGTCA	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc03g112680	CGTCA-motif	3666	-	CGTCA	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc05g055190	CGTCA-motif	1311	+	CGTCA	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc10g007830	ERE	13988	+	ATTTTAAA	
+Solyc02g092040	ERE	11346	-	ATTTTAAA	
+Solyc02g072250	ERE	8359	-	ATTTCATA	
+Solyc12g042760	ERE	6115	-	ATTTTAAA	
+Solyc03g112680	ERE	3223	-	ATTTTAAA	
+Solyc03g112680	ERE	3221	+	ATTTTAAA	
+Solyc05g055190	ERE	819	-	ATTTTAAA	
+Solyc05g009990	G-Box	5336	+	CACGTT	cis-acting regulatory element involved in light responsiveness
+Solyc05g009990	G-Box	5624	-	CACGTT	cis-acting regulatory element involved in light responsiveness
+Solyc05g055190	G-Box	491	+	CACGTT	cis-acting regulatory element involved in light responsiveness
+Solyc05g009990	G-box	5336	-	TAAACGTG	cis-acting regulatory element involved in light responsiveness
+Solyc05g009990	G-box	4372	+	TACGTG	cis-acting regulatory element involved in light responsiveness
+Solyc05g055190	G-box	511	+	TAACACGTAG	cis-acting regulatory element involved in light responsiveness
+Solyc02g092040	G-box	11530	-	CACGTC	cis-acting regulatory element involved in light responsiveness
+Solyc05g055190	G-box	174	+	CACGTC	cis-acting regulatory element involved in light responsiveness
+Solyc05g009990	G-box	5093	-	CACGTC	cis-acting regulatory element involved in light responsiveness
+Solyc05g009990	G-box	4602	-	CACGAC	cis-acting regulatory element involved in light responsiveness
+Solyc02g092040	GA-motif	11676	+	ATAGATAA	part of a light responsive element
+Solyc02g092040	GATA-motif	11782	-	GATAGGA	part of a light responsive element
+Solyc03g112680	GATA-motif	3457	-	GATAGGA	part of a light responsive element
+Solyc12g042760	GATA-motif	7669	-	GATAGGG	part of a light responsive element
+Solyc10g007830	GATA-motif	12549	-	AAGATAAGATT	part of a light responsive element
+Solyc03g112680	GATA-motif	2016	+	AAGATAAGATT	part of a light responsive element
+Solyc02g092040	GATA-motif	10819	+	AAGGATAAGG	part of a light responsive element
+Solyc03g112680	GC-motif	2817	+	CCCCCG	enhancer-like element involved in anoxic specific inducibility
+Solyc05g055190	GCN4_motif	574	-	TGAGTCA	cis-regulatory element involved in endosperm expression
+Solyc02g092040	GT1-motif	11253	-	GGTTAA	light responsive element
+Solyc02g092040	GT1-motif	10039	+	GGTTAAT	light responsive element
+Solyc12g042760	GT1-motif	6197	-	GGTTAA	light responsive element
+Solyc05g009990	GT1-motif	5807	+	GGTTAAT	light responsive element
+Solyc05g009990	GT1-motif	5566	+	GGTTAA	light responsive element
+Solyc05g009990	GT1-motif	5341	-	GGTTAA	light responsive element
+Solyc05g009990	GT1-motif	5106	+	GGTTAA	light responsive element
+Solyc05g009990	GT1-motif	4964	+	GGTTAA	light responsive element
+Solyc03g112680	GT1-motif	3049	-	GGTTAA	light responsive element
+Solyc03g112680	GT1-motif	3048	-	GGTTAAT	light responsive element
+Solyc03g112680	GT1-motif	2824	+	GGTTAA	light responsive element
+Solyc05g055190	GT1-motif	1591	+	GGTTAA	light responsive element
+Solyc02g072250	Gap-box	9923	-	CAAATGAA(A/G)A	part of a light responsive element
+Solyc10g007830	I-box	12549	-	AAGATAAGGCT	part of a light responsive element
+Solyc03g112680	I-box	2517	-	AGATAAGG	part of a light responsive element
+Solyc03g112680	LAMP-element	2113	+	CTTTATCA	part of a light responsive element
+Solyc12g042760	LTR	7182	-	CCGAAA	cis-acting element involved in low-temperature responsiveness
+Solyc10g007830	MBS	12168	-	CAACTG	MYB binding site involved in drought-inducibility
+Solyc02g092040	MBS	10661	+	CAACTG	MYB binding site involved in drought-inducibility
+Solyc02g092040	MBS	10367	-	CAACTG	MYB binding site involved in drought-inducibility
+Solyc02g072250	MBS	8637	-	CAACTG	MYB binding site involved in drought-inducibility
+Solyc05g009990	MBS	5307	+	CAACTG	MYB binding site involved in drought-inducibility
+Solyc05g009990	MBS	4628	-	CAACTG	MYB binding site involved in drought-inducibility
+Solyc03g112680	MBS	2739	-	CAACTG	MYB binding site involved in drought-inducibility
+Solyc12g042760	MRE	6199	+	AACCTAA	MYB binding site involved in light responsiveness
+Solyc12g042760	MRE	6418	-	AACCTAA	MYB binding site involved in light responsiveness
+Solyc12g042760	MRE	7291	+	AACCTAA	MYB binding site involved in light responsiveness
+Solyc10g007830	MSA-like	12077	+	TCCAACGGT	cis-acting element involved in cell cycle regulation
+Solyc10g007830	MYB	13916	-	CAACCA	
+Solyc10g007830	MYB	13693	-	TAACCA	
+Solyc10g007830	MYB	13570	-	CAACCA	
+Solyc10g007830	MYB	13154	-	CAACCA	
+Solyc10g007830	MYB	12111	-	CAACCA	
+Solyc02g092040	MYB	11578	-	CAACCA	
+Solyc02g092040	MYB	11254	+	TAACCA	
+Solyc02g092040	MYB	10940	+	TAACCA	
+Solyc02g092040	MYB	10752	-	CAACCA	
+Solyc02g092040	MYB	10477	+	TAACCA	
+Solyc02g092040	MYB	10038	-	TAACCA	
+Solyc02g072250	MYB	8453	-	TAACCA	
+Solyc12g042760	MYB	7278	-	CAACCA	
+Solyc12g042760	MYB	7191	+	CAACCA	
+Solyc12g042760	MYB	6236	-	TAACCA	
+Solyc05g009990	MYB	5342	+	TAACCA	
+Solyc05g009990	MYB	5105	-	TAACCA	
+Solyc05g009990	MYB	4963	-	TAACCA	
+Solyc03g112680	MYB	3711	-	TAACCA	
+Solyc03g112680	MYB	3050	+	TAACCA	
+Solyc03g112680	MYB	2832	-	TAACCA	
+Solyc03g112680	MYB	2823	-	TAACCA	
+Solyc03g112680	MYB	2695	-	CAACCA	
+Solyc03g112680	MYB	2435	-	CAACCA	
+Solyc05g055190	MYB	1590	-	TAACCA	
+Solyc05g055190	MYB	1381	-	CAACAG	
+Solyc05g055190	MYB	878	-	CAACCA	
+Solyc10g007830	MYB recognition site	12079	-	CCGTTG	
+Solyc02g092040	MYB recognition site	10647	-	CCGTTG	
+Solyc05g055190	MYB recognition site	1901	-	CCGTTG	
+Solyc10g007830	MYB-like sequence	13693	-	TAACCA	
+Solyc02g092040	MYB-like sequence	11254	+	TAACCA	
+Solyc02g092040	MYB-like sequence	10940	+	TAACCA	
+Solyc02g092040	MYB-like sequence	10477	+	TAACCA	
+Solyc02g092040	MYB-like sequence	10038	-	TAACCA	
+Solyc02g072250	MYB-like sequence	8453	-	TAACCA	
+Solyc12g042760	MYB-like sequence	6236	-	TAACCA	
+Solyc05g009990	MYB-like sequence	5342	+	TAACCA	
+Solyc05g009990	MYB-like sequence	5105	-	TAACCA	
+Solyc05g009990	MYB-like sequence	4963	-	TAACCA	
+Solyc03g112680	MYB-like sequence	3711	-	TAACCA	
+Solyc03g112680	MYB-like sequence	3050	+	TAACCA	
+Solyc03g112680	MYB-like sequence	2832	-	TAACCA	
+Solyc03g112680	MYB-like sequence	2823	-	TAACCA	
+Solyc05g055190	MYB-like sequence	1590	-	TAACCA	
+Solyc10g007830	MYC	13355	-	CAATTG	
+Solyc10g007830	MYC	12236	-	CATTTG	
+Solyc10g007830	MYC	12159	+	CATTTG	
+Solyc02g092040	MYC	11433	+	CATGTG	
+Solyc02g092040	MYC	10867	-	CATTTG	
+Solyc02g092040	MYC	10548	-	CATGTG	
+Solyc02g092040	MYC	10433	+	CATGTG	
+Solyc02g092040	MYC	10162	+	CATTTG	
+Solyc02g072250	MYC	9927	+	CATTTG	
+Solyc02g072250	MYC	9637	+	CATTTG	
+Solyc02g072250	MYC	9557	-	CATTTG	
+Solyc02g072250	MYC	9483	+	CATTTG	
+Solyc02g072250	MYC	8326	-	CATTTG	
+Solyc12g042760	MYC	7346	-	CATGTG	
+Solyc12g042760	MYC	7274	+	CATGTG	
+Solyc12g042760	MYC	6146	+	CAATTG	
+Solyc12g042760	MYC	6008	+	CATGTG	
+Solyc05g009990	MYC	5853	+	CATTTG	
+Solyc05g009990	MYC	5088	+	CATTTG	
+Solyc05g009990	MYC	4974	+	CATTTG	
+Solyc05g009990	MYC	4677	+	CAATTG	
+Solyc05g009990	MYC	4438	-	CATGTG	
+Solyc03g112680	MYC	3515	+	CATTTG	
+Solyc03g112680	MYC	2981	-	CATGTG	
+Solyc03g112680	MYC	2691	+	CAATTG	
+Solyc05g055190	MYC	1586	-	CATGTG	
+Solyc05g055190	MYC	380	-	CATGTG	
+Solyc10g007830	Myb	12813	-	TAACTG	
+Solyc10g007830	Myb	12168	-	CAACTG	
+Solyc02g092040	Myb	10661	+	CAACTG	
+Solyc02g092040	Myb	10367	-	CAACTG	
+Solyc02g072250	Myb	8715	-	TAACTG	
+Solyc02g072250	Myb	8637	-	CAACTG	
+Solyc12g042760	Myb	6257	-	TAACTG	
+Solyc05g009990	Myb	5412	-	TAACTG	
+Solyc05g009990	Myb	5307	+	CAACTG	
+Solyc05g009990	Myb	4628	-	CAACTG	
+Solyc05g009990	Myb	4476	+	TAACTG	
+Solyc03g112680	Myb	3704	-	TAACTG	
+Solyc03g112680	Myb	3653	+	TAACTG	
+Solyc03g112680	Myb	2739	-	CAACTG	
+Solyc05g055190	Myb-binding site	1381	-	CAACAG	
+Solyc10g007830	Myc	13022	+	TCTCTTA	
+Solyc05g009990	Myc	5548	-	TCTCTTA	
+Solyc03g112680	Myc	2489	+	TCTCTTA	
+Solyc05g055190	Myc	1300	-	TCTCTTA	
+Solyc05g055190	Myc	229	-	TCTCTTA	
+Solyc05g055190	O2-site	1822	+	GATGA(C/T)(A/G)TG(A/G)	cis-acting regulatory element involved in zein metabolism regulation
+Solyc02g092040	O2-site	11527	+	GTTGACGTGA	cis-acting regulatory element involved in zein metabolism regulation
+Solyc05g055190	P-box	1009	-	CCTTTTG	gibberellin-responsive element
+Solyc05g009990	P-box	5484	+	CCTTTTG	gibberellin-responsive element
+Solyc03g112680	P-box	2072	-	CCTTTTG	gibberellin-responsive element
+Solyc12g042760	P-box	6487	-	CCTTTTG	gibberellin-responsive element
+Solyc12g042760	RY-element	6569	+	CATGCATG	cis-acting regulatory element involved in seed-specific regulation
+Solyc10g007830	STRE	13450	+	AGGGG	
+Solyc10g007830	STRE	12975	+	AGGGG	
+Solyc02g072250	STRE	9615	+	AGGGG	
+Solyc02g072250	STRE	9546	+	AGGGG	
+Solyc02g072250	STRE	8292	-	AGGGG	
+Solyc05g009990	STRE	4990	-	AGGGG	
+Solyc05g055190	STRE	1769	-	AGGGG	
+Solyc05g055190	STRE	1354	+	AGGGG	
+Solyc02g072250	Sp1	9617	+	GGGCGG	light responsive element
+Solyc02g072250	TATA	9160	-	TATAAAAT	
+Solyc02g072250	TATA	9137	-	TATAAAAT	
+Solyc12g042760	TATA	7769	+	TATAAAAT	
+Solyc12g042760	TATA	7565	-	TATAAAAT	
+Solyc10g007830	TATA-box	13751	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13620	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12804	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12659	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12472	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12149	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11671	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13615	-	ATATAT	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13523	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13522	+	ATATAA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13118	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11545	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11414	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11403	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11355	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9763	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9451	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9353	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11612	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11353	-	TATACA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11327	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11402	+	ATATAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11361	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9732	-	TATAA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13736	-	TACAAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9730	-	TATAAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9632	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11669	+	ATTATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11613	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11610	-	TATAAAT	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11600	-	TATTTAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9762	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9733	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13619	-	ATATAT	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13618	-	TATATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8921	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9113	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11413	-	ATATAT	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8920	+	ATTATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8890	+	TATTTAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9164	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8902	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9731	-	TATAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9162	-	TATAAA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12798	-	taTATAAAtc	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12718	-	TATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12148	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11670	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8590	-	TATACA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9257	+	ATATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8592	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9141	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8212	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9210	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11360	+	ATATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7903	+	TACAAAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11325	-	TATACA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11121	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10938	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9139	-	TATAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8209	-	TATAAAA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13617	-	ATATAT	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	13616	-	TATATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9352	+	ATATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8210	-	TATAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9140	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8211	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11611	-	TATAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9194	-	ATATAT	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9992	+	ATATAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10937	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8579	+	TACAAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9014	+	TACAAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9211	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8973	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9195	-	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7568	-	TATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7713	-	TATATA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12803	-	ATATAT	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	567	-	TATAAA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5798	+	TATATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	3076	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6770	+	ATATAT	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	725	-	taTATAAAtc	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6308	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4140	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7355	+	ATTATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	467	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6239	-	TATAA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	3417	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7239	-	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2563	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6400	+	TATATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4753	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7561	-	ATATAT	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	466	+	ATATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6042	-	TATAA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	3313	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7107	-	ATATAT	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2456	+	ccTATAAAaa	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6399	+	ATATAT	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4338	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7404	-	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	405	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6268	+	ATATAT	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4138	-	TATAAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7331	-	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2896	-	TATACA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6768	+	ATATAT	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5796	+	ATTATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7566	-	TATAAAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	403	-	TATACA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5800	+	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	3146	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6811	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	569	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6335	-	TATAA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4282	-	TATACA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7357	-	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	196	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6266	+	ATATAT	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	3498	+	TACAAAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7329	-	TATATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2776	-	TATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6402	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5125	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7562	-	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	37	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6031	+	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	3291	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7108	-	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2164	+	TAAAGATT	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6336	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4284	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7459	-	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	110	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6267	+	TATATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4137	-	TATAAAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7336	-	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2777	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6769	+	TATATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5645	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7567	-	TATAAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	108	+	ccTATAAAaa	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5797	-	TATATAA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2898	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6771	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	568	-	TATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6269	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4139	-	TATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7356	-	TATAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	109	+	ATATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6043	+	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	3416	-	TATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7328	-	ATATAT	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2458	+	TACAAAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6401	+	ATATAT	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4752	-	TATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7403	-	TATAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	36	+	ATATAT	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5799	+	ATATAT	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	3144	-	TATACA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7020	-	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6334	+	ATTATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2067	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4279	-	TACAAAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7330	+	ATATAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	52	+	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6240	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4057	-	TACAAAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	6614	+	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2723	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5644	-	TATAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	710	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	4883	+	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2066	-	TATAA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5559	+	TATA	core promoter element around -30 of transcription start
+Solyc03g112680	TATA-box	2065	-	TATAAA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5434	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1735	+	TATA	core promoter element around -30 of transcription start
+Solyc05g009990	TATA-box	5381	-	TAAAGATT	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1734	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9161	-	TATAAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9258	-	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7598	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10936	+	ATTATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10860	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10859	-	TATAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1733	-	TATAAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1724	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1698	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1697	-	TATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7813	+	TACAAAA	core promoter element around -30 of transcription start
+Solyc10g007830	TATA-box	12147	+	ATTATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11728	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11727	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8972	-	TATAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1696	-	TATAAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1695	-	TATAAAT	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1657	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1476	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1318	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	1317	+	ATATAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	989	+	TATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	988	+	ATATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7576	+	TACAAAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9163	-	TATAA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9193	-	TATATA	core promoter element around -30 of transcription start
+Solyc05g055190	TATA-box	731	-	TACATAAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10858	-	TATAAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10475	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	11726	+	ATTATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7714	+	ATATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7599	-	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7769	-	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7569	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10473	-	TATACA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9138	-	TATAAAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10332	+	TACAAAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10183	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10182	-	TATAA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7712	-	ATATAT	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7715	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8971	+	ATTATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	8922	-	TATA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10181	-	TATAAA	core promoter element around -30 of transcription start
+Solyc02g092040	TATA-box	10057	-	TATA	core promoter element around -30 of transcription start
+Solyc02g072250	TATA-box	9993	-	TATA	core promoter element around -30 of transcription start
+Solyc12g042760	TATA-box	7597	-	TATAAA	core promoter element around -30 of transcription start
+Solyc05g055190	TATC-box	1453	+	TATCCCA	cis-acting element involved in gibberellin-responsiveness
+Solyc05g009990	TATC-box	4690	-	TATCCCA	cis-acting element involved in gibberellin-responsiveness
+Solyc03g112680	TATC-box	2055	-	TATCCCA	cis-acting element involved in gibberellin-responsiveness
+Solyc05g055190	TC-rich repeats	700	+	ATTCTCTAAC	cis-acting element involved in defense and stress responsiveness
+Solyc10g007830	TC-rich repeats	13020	+	GTTTTCTTAC	cis-acting element involved in defense and stress responsiveness
+Solyc12g042760	TC-rich repeats	6129	+	GTTTTCTTAC	cis-acting element involved in defense and stress responsiveness
+Solyc03g112680	TC-rich repeats	2906	+	GTTTTCTTAC	cis-acting element involved in defense and stress responsiveness
+Solyc10g007830	TC-rich repeats	12030	-	GTTTTCTTAC	cis-acting element involved in defense and stress responsiveness
+Solyc12g042760	TCA	7873	+	TCATCTTCAT	
+Solyc05g055190	TCA-element	1199	-	TCAGAAGAGG	cis-acting element involved in salicylic acid responsiveness
+Solyc02g072250	TCA-element	9857	+	CCATCTTTTT	cis-acting element involved in salicylic acid responsiveness
+Solyc05g009990	TCA-element	5893	-	CCATCTTTTT	cis-acting element involved in salicylic acid responsiveness
+Solyc03g112680	TCCC-motif	2657	-	TCTCCCT	part of a light responsive element
+Solyc10g007830	TCT-motif	13880	+	TCTTAC	part of a light responsive element
+Solyc10g007830	TCT-motif	13024	+	TCTTAC	part of a light responsive element
+Solyc10g007830	TCT-motif	12030	-	TCTTAC	part of a light responsive element
+Solyc02g092040	TCT-motif	10013	-	TCTTAC	part of a light responsive element
+Solyc02g072250	TCT-motif	8793	+	TCTTAC	part of a light responsive element
+Solyc02g072250	TCT-motif	8197	-	TCTTAC	part of a light responsive element
+Solyc12g042760	TCT-motif	6494	-	TCTTAC	part of a light responsive element
+Solyc12g042760	TCT-motif	6133	+	TCTTAC	part of a light responsive element
+Solyc05g009990	TCT-motif	5474	+	TCTTAC	part of a light responsive element
+Solyc03g112680	TCT-motif	3489	+	TCTTAC	part of a light responsive element
+Solyc03g112680	TCT-motif	2910	+	TCTTAC	part of a light responsive element
+Solyc05g055190	TCT-motif	1171	-	TCTTAC	part of a light responsive element
+Solyc05g055190	TCT-motif	609	+	TCTTAC	part of a light responsive element
+Solyc10g007830	TGA-element	13017	-	AACGAC	auxin-responsive element
+Solyc10g007830	TGA-element	12905	-	AACGAC	auxin-responsive element
+Solyc05g009990	TGA-element	4813	-	AACGAC	auxin-responsive element
+Solyc03g112680	TGA-element	3464	+	AACGAC	auxin-responsive element
+Solyc03g112680	TGACG-motif	3666	+	TGACG	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc02g092040	TGACG-motif	11529	+	TGACG	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc05g009990	TGACG-motif	5092	+	TGACG	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc05g055190	TGACG-motif	1311	-	TGACG	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc12g042760	TGACG-motif	6566	-	TGACG	cis-acting regulatory element involved in the MeJA-responsiveness
+Solyc03g112680	Unnamed__1	2821	+	CGTGG	
+Solyc02g092040	Unnamed__1	11532	+	CGTGG	
+Solyc05g009990	Unnamed__1	5626	+	CGTGG	
+Solyc03g112680	Unnamed__1	3746	+	CGTGG	
+Solyc05g009990	Unnamed__1	5817	-	GAATTTAATTAA	60K protein binding site
+Solyc02g072250	Unnamed__10	8371	-	TCCACGTAGA	
+Solyc02g072250	Unnamed__12	8371	-	TCCACGTAGA	
+Solyc02g072250	Unnamed__14	8371	-	TCCACGTAGA	
+Solyc05g055190	Unnamed__2	873	-	AACCTAACCT	
+Solyc02g092040	Unnamed__2	11799	+	AACCTAACCT	
+Solyc05g055190	Unnamed__4	315	+	CTCC	
+Solyc05g055190	Unnamed__4	1006	+	CTCC	
+Solyc05g055190	Unnamed__4	1437	+	CTCC	
+Solyc05g055190	Unnamed__4	1515	-	CTCC	
+Solyc05g055190	Unnamed__4	1536	-	CTCC	
+Solyc05g055190	Unnamed__4	1581	-	CTCC	
+Solyc05g055190	Unnamed__4	1981	+	CTCC	
+Solyc03g112680	Unnamed__4	2226	+	CTCC	
+Solyc03g112680	Unnamed__4	2427	+	CTCC	
+Solyc03g112680	Unnamed__4	2523	+	CTCC	
+Solyc03g112680	Unnamed__4	2620	-	CTCC	
+Solyc03g112680	Unnamed__4	2659	-	CTCC	
+Solyc03g112680	Unnamed__4	3066	+	CTCC	
+Solyc03g112680	Unnamed__4	3099	+	CTCC	
+Solyc03g112680	Unnamed__4	3349	-	CTCC	
+Solyc03g112680	Unnamed__4	3456	+	CTCC	
+Solyc03g112680	Unnamed__4	3551	+	CTCC	
+Solyc03g112680	Unnamed__4	3608	+	CTCC	
+Solyc05g009990	Unnamed__4	4068	-	CTCC	
+Solyc05g009990	Unnamed__4	4230	-	CTCC	
+Solyc05g009990	Unnamed__4	4240	-	CTCC	
+Solyc05g009990	Unnamed__4	4863	+	CTCC	
+Solyc05g009990	Unnamed__4	5174	+	CTCC	
+Solyc05g009990	Unnamed__4	5205	+	CTCC	
+Solyc05g009990	Unnamed__4	5451	+	CTCC	
+Solyc05g009990	Unnamed__4	5844	-	CTCC	
+Solyc05g009990	Unnamed__4	5905	-	CTCC	
+Solyc12g042760	Unnamed__4	6185	-	CTCC	
+Solyc12g042760	Unnamed__4	6482	+	CTCC	
+Solyc12g042760	Unnamed__4	6980	-	CTCC	
+Solyc12g042760	Unnamed__4	7077	+	CTCC	
+Solyc12g042760	Unnamed__4	7099	+	CTCC	
+Solyc12g042760	Unnamed__4	7114	+	CTCC	
+Solyc12g042760	Unnamed__4	7797	-	CTCC	
+Solyc02g072250	Unnamed__4	8018	+	CTCC	
+Solyc02g072250	Unnamed__4	8075	+	CTCC	
+Solyc02g072250	Unnamed__4	8087	+	CTCC	
+Solyc02g072250	Unnamed__4	8181	+	CTCC	
+Solyc02g072250	Unnamed__4	8736	-	CTCC	
+Solyc02g072250	Unnamed__4	9289	-	CTCC	
+Solyc02g072250	Unnamed__4	9499	+	CTCC	
+Solyc02g072250	Unnamed__4	9502	+	CTCC	
+Solyc02g072250	Unnamed__4	9505	+	CTCC	
+Solyc02g072250	Unnamed__4	9514	+	CTCC	
+Solyc02g072250	Unnamed__4	9613	-	CTCC	
+Solyc02g072250	Unnamed__4	9621	-	CTCC	
+Solyc02g092040	Unnamed__4	10082	+	CTCC	
+Solyc02g092040	Unnamed__4	10305	-	CTCC	
+Solyc02g092040	Unnamed__4	10312	-	CTCC	
+Solyc02g092040	Unnamed__4	10430	+	CTCC	
+Solyc02g092040	Unnamed__4	10439	+	CTCC	
+Solyc02g092040	Unnamed__4	10712	-	CTCC	
+Solyc02g092040	Unnamed__4	11073	-	CTCC	
+Solyc10g007830	Unnamed__4	12013	-	CTCC	
+Solyc10g007830	Unnamed__4	12165	+	CTCC	
+Solyc10g007830	Unnamed__4	12300	+	CTCC	
+Solyc10g007830	Unnamed__4	12372	+	CTCC	
+Solyc10g007830	Unnamed__4	12695	-	CTCC	
+Solyc10g007830	Unnamed__4	13056	+	CTCC	
+Solyc10g007830	Unnamed__4	13181	-	CTCC	
+Solyc10g007830	Unnamed__4	13329	+	CTCC	
+Solyc10g007830	Unnamed__4	13411	+	CTCC	
+Solyc10g007830	Unnamed__4	13440	+	CTCC	
+Solyc10g007830	Unnamed__4	13790	+	CTCC	
+Solyc10g007830	Unnamed__4	13810	+	CTCC	
+Solyc02g072250	Unnamed__6	9763	+	taTAAATATct	
+Solyc02g072250	Unnamed__8	8371	-	TCCACGTAGA	
+Solyc10g007830	W box	12932	-	TTGACC	
+Solyc02g092040	W box	10294	+	TTGACC	
+Solyc02g072250	W box	9388	-	TTGACC	
+Solyc05g009990	W box	5994	+	TTGACC	
+Solyc05g009990	W box	5738	-	TTGACC	
+Solyc05g009990	W box	4008	+	TTGACC	
+Solyc05g055190	W box	1062	+	TTGACC	
+Solyc05g055190	WRE3	1415	+	CCACCT	
+Solyc02g092040	WRE3	11275	-	CCACCT	
+Solyc05g009990	WRE3	5397	-	CCACCT	
+Solyc10g007830	WRE3	13792	+	CCACCT	
+Solyc03g112680	WRE3	2243	+	CCACCT	
+Solyc10g007830	WRE3	12023	+	CCACCT	
+Solyc02g072250	WRE3	9623	-	CCACCT	
+Solyc10g007830	WUN-motif	13730	-	AAATTACT	
+Solyc10g007830	WUN-motif	13719	-	AAATTTCTT	
+Solyc10g007830	WUN-motif	13563	-	CAATTACAT	
+Solyc02g092040	WUN-motif	11053	+	AAATTTCTT	
+Solyc05g009990	WUN-motif	5823	+	AAATTACT	
+Solyc02g072250	WUN-motif	8280	+	CCATTTCAA	
+Solyc05g055190	WUN-motif	1691	-	AAATTACT	
+Solyc05g055190	WUN-motif	1227	+	TAATTACTC	
+Solyc02g092040	as-1	11529	+	TGACG	
+Solyc12g042760	as-1	6566	-	TGACG	
+Solyc05g009990	as-1	5092	+	TGACG	
+Solyc03g112680	as-1	3666	+	TGACG	
+Solyc05g055190	as-1	1311	-	TGACG	
+Solyc02g072250	box S	9624	-	AGCCACC	
+Solyc03g112680	box S	2764	-	AGCCACC	
+Solyc02g072250	chs-CMA1a	8548	+	TTACTTAA	part of a light responsive element
+Solyc05g009990	chs-CMA1a	5826	+	TTACTTAA	part of a light responsive element
+Solyc05g009990	circadian	4656	+	CAAAGATATC	cis-acting regulatory element involved in circadian control
+Solyc05g055190	circadian	1795	+	CAAAGATATC	cis-acting regulatory element involved in circadian control
+Solyc03g112680	circadian	3554	+	CAAAGATATC	cis-acting regulatory element involved in circadian control

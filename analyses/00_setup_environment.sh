@@ -63,7 +63,7 @@ if [ ! -f "$KAKS_BIN" ]; then
     if [ -f "${TMPDIR_KAKS}/KaKs_Calculator2.0.tar.gz" ]; then
         tar -xzf "${TMPDIR_KAKS}/KaKs_Calculator2.0.tar.gz" -C "$TMPDIR_KAKS"
         # Tentar compilar
-        SRC_DIR=$(find "$TMPDIR_KAKS" -name "Makefile" -maxdepth 3 | head -1 | xargs dirname)
+        SRC_DIR=$(find "$TMPDIR_KAKS" -maxdepth 3 -name "Makefile" | head -1 | xargs -r dirname)
         if [ -n "$SRC_DIR" ]; then
             make -C "$SRC_DIR" 2>/dev/null && \
             cp "${SRC_DIR}/KaKs_Calculator" "$KAKS_BIN" && \

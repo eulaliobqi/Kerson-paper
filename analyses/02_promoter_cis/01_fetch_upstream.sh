@@ -36,50 +36,99 @@ if [ ! -f "$GFF3" ]; then
         gunzip -c "$GFF3_GZ" > "$GFF3"
         echo "GFF3 obtido via ITAG4.1 SGN"
     else
-        echo "ITAG4.1 indisponível — usando Ensembl Plants REST API para os 7 genes..."
+        echo "ITAG4.1 indisponível — usando EnsemblGenomes BioMart para os 7 genes..."
         export GENES_PATH_PRE="$GENES_FILE"
         export GENOME_FAI_PRE="${GENOME}.fai"
-        # Criar FAI antes de precisar do GFF3
         [ -f "${GENOME}.fai" ] || samtools faidx "$GENOME"
         python3 << 'PYEOF' > "$GFF3"
-import sys, os, json, urllib.request as req
+import sys, os, json, urllib.request as req, urllib.parse as parse
 
 genes_file = os.environ["GENES_PATH_PRE"]
-fai        = os.environ["GENOME_FAI_PRE"]
+fai_path   = os.environ["GENOME_FAI_PRE"]
 
-# Detectar nomenclatura de cromossomos no FASTA
 chrom_names = []
-with open(fai) as f:
+with open(fai_path) as f:
     for line in f:
         chrom_names.append(line.split("\t")[0])
 
-# Mapear inteiro Ensembl → nome real no FASTA
 def map_chrom(ec):
+    ec = str(ec)
     for c in chrom_names:
-        if ec == c or c.endswith(f"ch{int(ec):02d}") or c == f"ch{ec}" or c == f"Chr{ec}":
+        if ec == c:
             return c
-    return ec  # retornar como está se não encontrar
+        try:
+            if c.endswith(f"ch{int(ec):02d}") or c == f"ch{ec}" or c == f"Chr{ec}":
+                return c
+        except ValueError:
+            pass
+    return ec
 
 with open(genes_file) as f:
     genes = [l.strip() for l in f if l.strip()]
 
-print("##gff-version 3")
+results = []
+
+# 1ª tentativa: EnsemblGenomes REST API (endpoint correto para plantas)
+print("Tentando EnsemblGenomes REST API (plants)...", file=sys.stderr)
 for gene in genes:
-    url = f"https://rest.ensembl.org/lookup/id/{gene}?content-type=application/json;expand=0"
+    url = f"https://rest.ensemblgenomes.org/lookup/id/{gene}?content-type=application/json;expand=0"
     try:
         with req.urlopen(url, timeout=15) as r:
             d = json.loads(r.read())
-        chrom  = map_chrom(str(d["seq_region_name"]))
+        chrom  = map_chrom(d["seq_region_name"])
         start  = d["start"]
         end    = d["end"]
         strand = "+" if d["strand"] == 1 else "-"
-        attrs  = f"ID={gene};Name={gene}"
-        print(f"{chrom}\tEnsemblPlants\tgene\t{start}\t{end}\t.\t{strand}\t.\t{attrs}")
+        results.append((chrom, start, end, gene, strand))
         print(f"  {gene}: {chrom}:{start}-{end} ({strand})", file=sys.stderr)
     except Exception as e:
-        print(f"  AVISO: {gene} — {e}", file=sys.stderr)
+        print(f"  REST falhou {gene}: {e}", file=sys.stderr)
+
+# 2ª tentativa: BioMart batch (se REST não funcionou para todos)
+if len(results) < len(genes):
+    print(f"REST retornou {len(results)}/{len(genes)} — tentando BioMart...", file=sys.stderr)
+    found_ids = {r[3] for r in results}
+    missing   = [g for g in genes if g not in found_ids]
+    gene_csv  = ",".join(missing)
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<!DOCTYPE Query>'
+        '<Query virtualSchemaName="plants_mart" formatter="TSV" header="0" uniqueRows="1" count="" datasetConfigVersion="0.6">'
+        '<Dataset name="slycopersicum_eg_gene" interface="default">'
+        f'<Filter name="ensembl_gene_id" value="{gene_csv}"/>'
+        '<Attribute name="ensembl_gene_id"/>'
+        '<Attribute name="chromosome_name"/>'
+        '<Attribute name="start_position"/>'
+        '<Attribute name="end_position"/>'
+        '<Attribute name="strand"/>'
+        '</Dataset></Query>'
+    )
+    bm_url = "https://plants.ensembl.org/biomart/martservice?query=" + parse.quote(xml)
+    try:
+        with req.urlopen(bm_url, timeout=30) as r:
+            for line in r.read().decode().strip().split("\n"):
+                if not line or line.startswith("["):
+                    continue
+                parts = line.split("\t")
+                if len(parts) >= 5:
+                    gid, chrom_raw, start, end, strand_raw = parts[:5]
+                    chrom = map_chrom(chrom_raw)
+                    s = "+" if strand_raw == "1" else "-"
+                    results.append((chrom, int(start), int(end), gid, s))
+                    print(f"  {gid}: {chrom}:{start}-{end} ({s})", file=sys.stderr)
+    except Exception as e:
+        print(f"  BioMart falhou: {e}", file=sys.stderr)
+
+print("##gff-version 3")
+for chrom, start, end, gene, strand in results:
+    attrs = f"ID={gene};Name={gene}"
+    print(f"{chrom}\tEnsemblGenomes\tgene\t{start}\t{end}\t.\t{strand}\t.\t{attrs}")
+
+if not results:
+    print("ERRO: nenhuma coordenada obtida. Verifique conexão com internet.", file=sys.stderr)
+    sys.exit(1)
 PYEOF
-        echo "GFF3 mínimo gerado via Ensembl Plants REST API"
+        echo "GFF3 gerado via EnsemblGenomes (${?} genes)"
     fi
 fi
 

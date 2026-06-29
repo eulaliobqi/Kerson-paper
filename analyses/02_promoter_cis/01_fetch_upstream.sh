@@ -26,10 +26,61 @@ if [ ! -f "$GENOME" ]; then
 fi
 
 if [ ! -f "$GFF3" ]; then
-    echo "[2/5] Baixando anotação ITAG4.0 GFF3..."
-    wget -c -P "$DB_DIR" \
-        "https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.0_release/ITAG4.0_gene_models.gff3.gz"
-    gunzip "${DB_DIR}/ITAG4.0_gene_models.gff3.gz"
+    echo "[2/5] Baixando anotação GFF3 (ITAG4.1 → fallback REST API)..."
+    GFF3_GZ="${DB_DIR}/gene_models.gff3.gz"
+
+    # Tentar ITAG4.1 (mesmo IDs Solyc, anotação mais recente)
+    ITAG41="https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.1_release/ITAG4.1_gene_models.gff3.gz"
+    if wget -q --spider "$ITAG41" 2>/dev/null; then
+        wget -c -O "$GFF3_GZ" "$ITAG41"
+        gunzip -c "$GFF3_GZ" > "$GFF3"
+        echo "GFF3 obtido via ITAG4.1 SGN"
+    else
+        echo "ITAG4.1 indisponível — usando Ensembl Plants REST API para os 7 genes..."
+        export GENES_PATH_PRE="$GENES_FILE"
+        export GENOME_FAI_PRE="${GENOME}.fai"
+        # Criar FAI antes de precisar do GFF3
+        [ -f "${GENOME}.fai" ] || samtools faidx "$GENOME"
+        python3 << 'PYEOF' > "$GFF3"
+import sys, os, json, urllib.request as req
+
+genes_file = os.environ["GENES_PATH_PRE"]
+fai        = os.environ["GENOME_FAI_PRE"]
+
+# Detectar nomenclatura de cromossomos no FASTA
+chrom_names = []
+with open(fai) as f:
+    for line in f:
+        chrom_names.append(line.split("\t")[0])
+
+# Mapear inteiro Ensembl → nome real no FASTA
+def map_chrom(ec):
+    for c in chrom_names:
+        if ec == c or c.endswith(f"ch{int(ec):02d}") or c == f"ch{ec}" or c == f"Chr{ec}":
+            return c
+    return ec  # retornar como está se não encontrar
+
+with open(genes_file) as f:
+    genes = [l.strip() for l in f if l.strip()]
+
+print("##gff-version 3")
+for gene in genes:
+    url = f"https://rest.ensembl.org/lookup/id/{gene}?content-type=application/json;expand=0"
+    try:
+        with req.urlopen(url, timeout=15) as r:
+            d = json.loads(r.read())
+        chrom  = map_chrom(str(d["seq_region_name"]))
+        start  = d["start"]
+        end    = d["end"]
+        strand = "+" if d["strand"] == 1 else "-"
+        attrs  = f"ID={gene};Name={gene}"
+        print(f"{chrom}\tEnsemblPlants\tgene\t{start}\t{end}\t.\t{strand}\t.\t{attrs}")
+        print(f"  {gene}: {chrom}:{start}-{end} ({strand})", file=sys.stderr)
+    except Exception as e:
+        print(f"  AVISO: {gene} — {e}", file=sys.stderr)
+PYEOF
+        echo "GFF3 mínimo gerado via Ensembl Plants REST API"
+    fi
 fi
 
 # ── Indexar genoma ────────────────────────────────────────────────────────────

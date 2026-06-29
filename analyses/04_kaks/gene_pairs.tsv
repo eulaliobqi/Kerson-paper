@@ -1,0 +1,26 @@
+# Pares de genes para análise Ka/Ks (pressão seletiva em duplicatas)
+# Formato: gene_A <TAB> gene_B <TAB> tipo <TAB> evidencia
+#
+# Pares identificados por:
+#   - Duplicação em tandem: IDs adjacentes no mesmo cromossomo (num. gene consecutivo)
+#   - Duplicação segmental: genes homólogos em cromossomos distintos (suportado por sintenia)
+#
+# Interpretação Ka/Ks:
+#   Ka/Ks < 1  → seleção purificadora (função conservada)
+#   Ka/Ks ≈ 1  → evolução neutra
+#   Ka/Ks > 1  → seleção positiva (neofuncionalização)
+
+gene_A	gene_B	tipo	evidencia
+Solyc01g005730	Solyc01g005760	tandem	IDs consecutivos no chr01; cluster LRR tandem
+Solyc01g005760	Solyc01g005780	tandem	IDs consecutivos no chr01; cluster LRR tandem
+Solyc01g098370	Solyc01g098680	tandem	IDs próximos no chr01; separados por ~300 kb
+Solyc01g098680	Solyc01g098690	tandem	IDs consecutivos no chr01; cluster LRR tandem
+Solyc06g008270	Solyc06g008300	tandem	IDs próximos no chr06; par LRR-RLP tandem
+Solyc07g008590	Solyc07g008600	tandem	IDs consecutivos no chr07; maior cluster (5 genes)
+Solyc07g008600	Solyc07g008620	tandem	IDs consecutivos no chr07; maior cluster (5 genes)
+Solyc07g008620	Solyc07g008630	tandem	IDs consecutivos no chr07; maior cluster (5 genes)
+Solyc12g009510	Solyc12g009520	tandem	IDs consecutivos no chr12; par LRR-RLP tandem
+Solyc12g099870	Solyc12g099950	tandem	IDs próximos no chr12; cluster LRR tandem
+Solyc12g099950	Solyc12g100030	tandem	IDs próximos no chr12; cluster LRR tandem
+Solyc02g072250	Solyc02g092040	segmental	ambos chr02; 6 LRR cada; ortólogas de SNC2/SNC3 e AT3G49750 (A. thaliana)
+Solyc05g055190	Solyc03g112680	segmental	chr05 vs chr03; ambas CLV2-like; famílias LRR distintas (filogenia)

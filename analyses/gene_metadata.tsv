@@ -1,0 +1,8 @@
+gene_id	label	ortholog_ath	function	n_lrr	chromosome
+Solyc05g055190	SlRLP1	AT1G65380.1 (CLV2)	Meristem apical — percepção CLV3	NA	chr05
+Solyc03g112680	SlRLP2	AT1G17240.1	Substituta de CLV2	32	chr03
+Solyc05g009990	SlRLP3	AT4G28560.1 (RIC7)	Controle estomático — interação ROP2	9	chr05
+Solyc12g042760	SlRLP4	AT1G80080.1 (TMM)	Padrão estomático	10	chr12
+Solyc02g072250	SlRLP5	AT5G45770+AT4G18760 (SNC2/SNC3)	Via ácido salicílico — defesa	6	chr02
+Solyc02g092040	SlRLP6	AT3G49750+AT5G65830	RLP sem função conhecida	6	chr02
+Solyc10g007830	SlRLP7	—	RLP (sem ortóloga caracterizada)	NA	chr10

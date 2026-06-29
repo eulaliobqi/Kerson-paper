@@ -1,0 +1,45 @@
+# ── Resultados computacionais (grandes, reproduzíveis) ──────────────────────
+analyses/02_promoter_cis/rlp_upstream_2kb.fa
+analyses/03_expression_atlas/expression_matrix.csv
+analyses/04_kaks/results/
+analyses/04_kaks/kaks_summary.tsv
+analyses/05_rmsd_quality/rmsd_matrix.csv
+analyses/05_rmsd_quality/rmsd_calc.py
+analyses/05_rmsd_quality/pdb_models/*.pdb
+analyses/06_domain_architecture/proteins_49rlp.fa
+analyses/06_domain_architecture/hmmer_out/
+analyses/07_synteny_solanaceae/mcscan_results/
+results/
+
+# ── Outputs intermediários ─────────────────────────────────────────────────
+*.log
+*.tmp
+/tmp/
+
+# ── Bases de dados do servidor (nunca commitar) ──────────────────────────────
+/home/
+
+# ── Arquivos de figura (commitar apenas as versões finais manualmente) ───────
+*.pdf
+*.png
+*.tiff
+*.eps
+
+# ── Python cache ─────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# ── R session data ────────────────────────────────────────────────────────────
+.Rhistory
+.RData
+.Rproj.user/
+
+# ── Sistema ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+
+# ── EXCEPÇÕES: commitar estes arquivos mesmo se matcharem padrões acima ──────
+# (Figuras finais do artigo podem ser adicionadas manualmente com git add -f)

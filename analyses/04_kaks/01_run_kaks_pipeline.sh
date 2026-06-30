@@ -114,8 +114,8 @@ if len(aln) < 2:
 
 with open(axt_out, "w") as f:
     f.write(f"{pair_name}\n")
-    f.write(str(aln[0].seq).replace("-", "") + "\n")
-    f.write(str(aln[1].seq).replace("-", "") + "\n")
+    f.write(str(aln[0].seq) + "\n")
+    f.write(str(aln[1].seq) + "\n")
     f.write("\n")
 print(f"  AXT gerado: {axt_out}")
 PYEOF

@@ -90,48 +90,124 @@ copy_repo_file "$REPO_POTATO_PEP" "potato_pep"
 copy_repo_file "$REPO_PEPPER_GFF" "pepper.gff"
 copy_repo_file "$REPO_PEPPER_PEP" "pepper_pep"
 
-# ── 3. GFF → BED para MCScanX ─────────────────────────────────────────────────
-echo "[3/5] Convertendo GFF → BED..."
+# ── 3. Normalizar IDs e gerar GFF/proteínas para MCScanX ─────────────────────
+# MCScanX requer:
+#   GFF:   chrom<TAB>gene_id<TAB>start<TAB>end   (gene_id = coluna 2, NÃO coluna 4)
+#   BLAST: IDs das colunas 1 e 2 devem ser IDÊNTICOS ao gene_id do GFF
+#
+# Problema sem normalização:
+#   Tomato: proteína "Solyc00g500001.1.1" ≠ GFF "gene:Solyc00g500001.1"
+#   Potato: proteína "PGSC0003DMT400092485" ≠ GFF "gene:PGSC0003DMG400042056"
+#   Pepper: proteína "PHT63248" ≠ GFF "gene:T459_32892"
+echo "[3/5] Normalizando IDs (GFF → MCScanX format + FASTAs com gene IDs)..."
 export DB_DIR_PY="$DB_DIR"
+export OUTDIR_PY="$OUTDIR"
 
 python3 << 'PYEOF'
-import os, re, gzip
+import os, re
 
-db = os.environ["DB_DIR_PY"]
-species_gff = {
-    "tomato": os.path.join(db, "tomato.gff"),
-    "potato": os.path.join(db, "potato.gff"),
-    "pepper": os.path.join(db, "pepper.gff"),
+db     = os.environ["DB_DIR_PY"]
+outdir = os.environ["OUTDIR_PY"]
+
+species_cfg = {
+    "tomato": {
+        "gff": os.path.join(db, "tomato.gff"),
+        "pep": os.path.join(db, "tomato_pep"),
+    },
+    "potato": {
+        "gff": os.path.join(db, "potato.gff"),
+        "pep": os.path.join(db, "potato_pep"),
+    },
+    "pepper": {
+        "gff": os.path.join(db, "pepper.gff"),
+        "pep": os.path.join(db, "pepper_pep"),
+    },
 }
 
-for sp, gff in species_gff.items():
+all_genes = {}  # sp -> {gene_id: (chrom, start, end)}
+
+for sp, cfg in species_cfg.items():
+    gff = cfg["gff"]
+    pep = cfg["pep"]
+
     if not os.path.exists(gff):
         print(f"  AVISO: {gff} ausente — pulando {sp}")
         continue
-    bed_out = os.path.join(db, f"{sp}.bed")
-    rows = []
-    open_fn = gzip.open if gff.endswith(".gz") else open
-    with open_fn(gff, "rt", errors="ignore") as f:
+
+    # 1. Parsear GFF3 → gene_id (sem prefixo "gene:") + coordenadas
+    genes = {}   # gene_id_clean → (chrom, start, end)
+    with open(gff, errors="ignore") as f:
         for line in f:
             if line.startswith("#"):
                 continue
             cols = line.strip().split("\t")
             if len(cols) < 9 or cols[2] != "gene":
                 continue
-            chrom  = cols[0]
-            start  = int(cols[3]) - 1
-            end    = int(cols[4])
-            strand = cols[6]
-            m = re.search(r"ID=([^;]+)", cols[8])
+            chrom = cols[0]
+            start = int(cols[3])
+            end   = int(cols[4])
+            attrs = cols[8]
+            m = re.search(r"ID=gene:([^;]+)", attrs)
+            if not m:
+                m = re.search(r"ID=([^;]+)", attrs)
             gene_id = m.group(1) if m else "."
-            rows.append(f"{sp}_{chrom}\t{start}\t{end}\t{gene_id}\t0\t{strand}")
-    with open(bed_out, "w") as f:
-        f.write("\n".join(rows) + "\n")
-    print(f"  {sp}: {len(rows)} genes -> {bed_out}")
+            genes[gene_id] = (f"{sp}_{chrom}", start, end)
+
+    all_genes[sp] = genes
+
+    # 2. Escrever GFF no formato MCScanX: chrom\tgene_id\tstart\tend
+    mcscan_gff = os.path.join(outdir, f"{sp}.mcscan.gff")
+    with open(mcscan_gff, "w") as f:
+        for gid, (chrom, s, e) in genes.items():
+            f.write(f"{chrom}\t{gid}\t{s}\t{e}\n")
+    print(f"  {sp}: {len(genes)} genes → {mcscan_gff}")
+
+    # 3. Criar FASTA de proteínas com gene_id como header
+    #    (uma sequência por gene, primeira isoforma encontrada)
+    norm_pep = os.path.join(outdir, f"{sp}_pep_norm.fa")
+    if os.path.exists(norm_pep):
+        print(f"  {sp}: FASTA normalizado já existe")
+        continue
+
+    if not os.path.exists(pep):
+        print(f"  AVISO: {pep} ausente — proteínas não normalizadas para {sp}")
+        continue
+
+    seen = set()
+    write_this = False
+    lines_out = []
+
+    with open(pep, errors="ignore") as f:
+        for line in f:
+            if line.startswith(">"):
+                write_this = False
+                header = line[1:].strip()
+                parts  = header.split()
+                prot_id = parts[0]
+
+                if sp == "tomato":
+                    # Solyc00g500001.1.1 → Solyc00g500001.1  (strip último .X)
+                    gene_id = re.sub(r"\.\d+$", "", prot_id)
+                else:
+                    # EnsemblPlants: buscar "gene:XXXX" no header
+                    m = re.search(r"\bgene:(\S+)", header)
+                    gene_id = m.group(1) if m else None
+
+                if gene_id and gene_id in genes and gene_id not in seen:
+                    seen.add(gene_id)
+                    write_this = True
+                    lines_out.append(f">{gene_id}\n")
+            elif write_this:
+                lines_out.append(line)
+
+    with open(norm_pep, "w") as f:
+        f.writelines(lines_out)
+    print(f"  {sp}: {len(seen)} proteínas normalizadas → {norm_pep}")
+
 PYEOF
 
-# ── 4. LAST: comparação proteína × proteína ───────────────────────────────────
-echo "[4/5] Comparando proteínas com LAST..."
+# ── 4. LAST: comparação proteína × proteína (com IDs normalizados) ────────────
+echo "[4/5] Comparando proteínas com LAST (IDs normalizados)..."
 
 if ! command -v lastdb &>/dev/null; then
     echo "  AVISO: LAST não encontrado."
@@ -139,13 +215,13 @@ if ! command -v lastdb &>/dev/null; then
 else
     SPECIES=("tomato" "potato" "pepper")
     for sp2 in "${SPECIES[@]}"; do
-        pep2="${DB_DIR}/${sp2}_pep"
+        pep2="${OUTDIR}/${sp2}_pep_norm.fa"
         [ -f "$pep2" ] || continue
-        DB_PREFIX="${OUTDIR}/${sp2}_db"
+        DB_PREFIX="${OUTDIR}/${sp2}_db_norm"
         [ -f "${DB_PREFIX}.prj" ] || lastdb -p "$DB_PREFIX" "$pep2"
         for sp1 in "${SPECIES[@]}"; do
             [ "$sp1" = "$sp2" ] && continue
-            pep1="${DB_DIR}/${sp1}_pep"
+            pep1="${OUTDIR}/${sp1}_pep_norm.fa"
             [ -f "$pep1" ] || continue
             BLAST_OUT="${OUTDIR}/${sp1}_vs_${sp2}.blast"
             [ -f "$BLAST_OUT" ] && continue
@@ -158,10 +234,13 @@ fi
 # ── 5. MCScanX ────────────────────────────────────────────────────────────────
 echo "[5/5] Rodando MCScanX..."
 
-# Combinar BEDs e BLASTs disponíveis
-cat "${DB_DIR}/tomato.bed" "${DB_DIR}/potato.bed" "${DB_DIR}/pepper.bed" \
+# Combinar GFFs normalizados (formato MCScanX: chrom gene_id start end)
+cat "${OUTDIR}/tomato.mcscan.gff" \
+    "${OUTDIR}/potato.mcscan.gff" \
+    "${OUTDIR}/pepper.mcscan.gff" \
     > "${OUTDIR}/all_species.gff" 2>/dev/null || true
 
+# Combinar BLASTs (pares não redundantes)
 for pair in "tomato_vs_potato" "tomato_vs_pepper" "potato_vs_pepper"; do
     [ -f "${OUTDIR}/${pair}.blast" ] && cat "${OUTDIR}/${pair}.blast"
 done > "${OUTDIR}/all_species.blast" 2>/dev/null || true

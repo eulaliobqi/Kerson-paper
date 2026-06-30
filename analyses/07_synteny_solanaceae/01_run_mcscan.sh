@@ -5,6 +5,9 @@
 #
 # Dependências: wget, last, mcscanx, python3
 #   mamba install -n kerson-paper -c bioconda last mcscanx -y
+#
+# Tomato: GFF e proteínas vêm do repositório (git pull já os incluiu).
+# Batata/pimenta: baixados do NCBI (acessível no servidor UFV).
 
 set -euo pipefail
 
@@ -16,50 +19,100 @@ GENES_FILE="${REPO_ROOT}/analyses/genes_7rlp.txt"
 
 mkdir -p "$DB_DIR" "$OUTDIR"
 
-# ── URLs dos genomas Solanaceae ───────────────────────────────────────────────
-TOMATO_GFF="https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.0_release/ITAG4.0_gene_models.gff3.gz"
-TOMATO_PEP="https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.0_release/ITAG4.0_proteins.fasta.gz"
-POTATO_GFF="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/226/075/GCA_000226075.1_DM_v6.1/GCA_000226075.1_DM_v6.1_genomic.gff.gz"
-POTATO_PEP="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/226/075/GCA_000226075.1_DM_v6.1/GCA_000226075.1_DM_v6.1_protein.faa.gz"
-PEPPER_GFF="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/710/875/GCA_000710875.1_Pepper_1.55/GCA_000710875.1_Pepper_1.55_genomic.gff.gz"
-PEPPER_PEP="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/710/875/GCA_000710875.1_Pepper_1.55/GCA_000710875.1_Pepper_1.55_protein.faa.gz"
+# ── Arquivos tomato (do repositório — não dependem de rede) ──────────────────
+REPO_TOMATO_GFF="${SCRIPT_DIR}/ITAG4.0_gene_models.gff.gz"
+REPO_TOMATO_PEP="${REPO_ROOT}/analyses/06_domain_architecture/ITAG4.0_proteins.fasta"
 
-# ── 1. Download anotações ──────────────────────────────────────────────────────
-for pair in "tomato|${TOMATO_GFF}" "tomato_pep|${TOMATO_PEP}" \
-            "potato|${POTATO_GFF}" "potato_pep|${POTATO_PEP}" \
-            "pepper|${PEPPER_GFF}" "pepper_pep|${PEPPER_PEP}"; do
-    name="${pair%%|*}"
-    url="${pair##*|}"
-    ext="${url##*.gz}"
-    out="${DB_DIR}/${name}.${url##*.}"
-    out="${DB_DIR}/${name}.gz"
-    final="${DB_DIR}/${name}"
-    [ -f "$final" ] && continue
-    echo "Baixando ${name}..."
-    wget -q -c -O "$out" "$url"
-    gunzip -c "$out" > "$final"
-done
+# ── URLs NCBI (batata e pimenta — acessíveis no servidor UFV) ────────────────
+POTATO_GFF_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/226/075/GCA_000226075.1_DM_v6.1/GCA_000226075.1_DM_v6.1_genomic.gff.gz"
+POTATO_PEP_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/226/075/GCA_000226075.1_DM_v6.1/GCA_000226075.1_DM_v6.1_protein.faa.gz"
+PEPPER_GFF_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/710/875/GCA_000710875.1_Pepper_1.55/GCA_000710875.1_Pepper_1.55_genomic.gff.gz"
+PEPPER_PEP_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/710/875/GCA_000710875.1_Pepper_1.55/GCA_000710875.1_Pepper_1.55_protein.faa.gz"
 
-# ── 2. GFF → BED para MCScanX ─────────────────────────────────────────────────
+echo "================================================================="
+echo " 01_run_mcscan.sh — Sintenia Solanaceae (MCScanX)"
+echo "================================================================="
+echo ""
+
+# ── 1. Preparar tomate (cópias locais do repo) ────────────────────────────────
+echo "[1/5] Preparando arquivos de tomate..."
+TOMATO_GFF_FINAL="${DB_DIR}/tomato.gff"
+TOMATO_PEP_FINAL="${DB_DIR}/tomato_pep"
+
+if [ ! -f "$TOMATO_GFF_FINAL" ]; then
+    if [ -f "$REPO_TOMATO_GFF" ]; then
+        echo "  Descomprimindo GFF tomato do repo..."
+        gunzip -c "$REPO_TOMATO_GFF" > "$TOMATO_GFF_FINAL"
+    else
+        echo "  ERRO: ${REPO_TOMATO_GFF} não encontrado."
+        echo "  Certifique-se de ter rodado: git pull"
+        exit 1
+    fi
+else
+    echo "  GFF tomato já disponível."
+fi
+
+if [ ! -f "$TOMATO_PEP_FINAL" ]; then
+    if [ -f "$REPO_TOMATO_PEP" ]; then
+        echo "  Copiando proteínas tomato do repo..."
+        cp "$REPO_TOMATO_PEP" "$TOMATO_PEP_FINAL"
+    else
+        echo "  ERRO: ${REPO_TOMATO_PEP} não encontrado."
+        exit 1
+    fi
+else
+    echo "  Proteínas tomato já disponíveis."
+fi
+
+# ── 2. Download batata e pimenta (NCBI — acessível no servidor) ───────────────
+echo "[2/5] Baixando anotações batata/pimenta do NCBI..."
+
+download_ncbi() {
+    local name="$1"
+    local url="$2"
+    local final="${DB_DIR}/${name}"
+    if [ -f "$final" ]; then
+        echo "  ${name} já disponível."
+        return
+    fi
+    echo "  Baixando ${name}..."
+    if wget -q -c --timeout=60 -O "${final}.gz" "$url" 2>/dev/null; then
+        gunzip -c "${final}.gz" > "$final"
+        rm -f "${final}.gz"
+        echo "  OK: ${name}"
+    else
+        echo "  AVISO: falha ao baixar ${name} — será pulado na análise."
+        rm -f "${final}.gz"
+    fi
+}
+
+download_ncbi "potato.gff"  "$POTATO_GFF_URL"
+download_ncbi "potato_pep"  "$POTATO_PEP_URL"
+download_ncbi "pepper.gff"  "$PEPPER_GFF_URL"
+download_ncbi "pepper_pep"  "$PEPPER_PEP_URL"
+
+# ── 3. GFF → BED para MCScanX ─────────────────────────────────────────────────
+echo "[3/5] Convertendo GFF → BED..."
 export DB_DIR_PY="$DB_DIR"
 
 python3 << 'PYEOF'
-import os, re
+import os, re, gzip
 
 db = os.environ["DB_DIR_PY"]
 species_gff = {
-    "tomato": os.path.join(db, "tomato"),
-    "potato": os.path.join(db, "potato"),
-    "pepper": os.path.join(db, "pepper"),
+    "tomato": os.path.join(db, "tomato.gff"),
+    "potato": os.path.join(db, "potato.gff"),
+    "pepper": os.path.join(db, "pepper.gff"),
 }
 
 for sp, gff in species_gff.items():
     if not os.path.exists(gff):
-        print(f"AVISO: {gff} não encontrado — pulando {sp}")
+        print(f"  AVISO: {gff} ausente — pulando {sp}")
         continue
-    bed_out = gff + ".bed"
+    bed_out = os.path.join(db, f"{sp}.bed")
     rows = []
-    with open(gff) as f:
+    open_fn = gzip.open if gff.endswith(".gz") else open
+    with open_fn(gff, "rt", errors="ignore") as f:
         for line in f:
             if line.startswith("#"):
                 continue
@@ -75,46 +128,58 @@ for sp, gff in species_gff.items():
             rows.append(f"{sp}_{chrom}\t{start}\t{end}\t{gene_id}\t0\t{strand}")
     with open(bed_out, "w") as f:
         f.write("\n".join(rows) + "\n")
-    print(f"{sp}: {len(rows)} genes → {bed_out}")
+    print(f"  {sp}: {len(rows)} genes -> {bed_out}")
 PYEOF
 
-# ── 3. Comparação proteínas com LAST ─────────────────────────────────────────
-for sp1 in tomato potato pepper; do
-    for sp2 in tomato potato pepper; do
-        [ "$sp1" = "$sp2" ] && continue
-        BLAST_OUT="${OUTDIR}/${sp1}_vs_${sp2}.blast"
-        [ -f "$BLAST_OUT" ] && continue
-        echo "Comparando proteínas: ${sp1} × ${sp2}..."
-        lastdb -p "${OUTDIR}/${sp2}_db" "${DB_DIR}/${sp2}_pep"
-        lastal -f BlastTab "${OUTDIR}/${sp2}_db" "${DB_DIR}/${sp1}_pep" > "$BLAST_OUT"
-    done
-done
+# ── 4. LAST: comparação proteína × proteína ───────────────────────────────────
+echo "[4/5] Comparando proteínas com LAST..."
 
-# ── 4. Concatenar e rodar MCScanX ─────────────────────────────────────────────
+if ! command -v lastdb &>/dev/null; then
+    echo "  AVISO: LAST não encontrado."
+    echo "  Instale: mamba install -n kerson-paper -c bioconda last -y"
+else
+    SPECIES=("tomato" "potato" "pepper")
+    for sp2 in "${SPECIES[@]}"; do
+        pep2="${DB_DIR}/${sp2}_pep"
+        [ -f "$pep2" ] || continue
+        DB_PREFIX="${OUTDIR}/${sp2}_db"
+        [ -f "${DB_PREFIX}.prj" ] || lastdb -p "$DB_PREFIX" "$pep2"
+        for sp1 in "${SPECIES[@]}"; do
+            [ "$sp1" = "$sp2" ] && continue
+            pep1="${DB_DIR}/${sp1}_pep"
+            [ -f "$pep1" ] || continue
+            BLAST_OUT="${OUTDIR}/${sp1}_vs_${sp2}.blast"
+            [ -f "$BLAST_OUT" ] && continue
+            echo "  ${sp1} × ${sp2}..."
+            lastal -f BlastTab "$DB_PREFIX" "$pep1" > "$BLAST_OUT"
+        done
+    done
+fi
+
+# ── 5. MCScanX ────────────────────────────────────────────────────────────────
+echo "[5/5] Rodando MCScanX..."
+
+# Combinar BEDs e BLASTs disponíveis
 cat "${DB_DIR}/tomato.bed" "${DB_DIR}/potato.bed" "${DB_DIR}/pepper.bed" \
     > "${OUTDIR}/all_species.gff" 2>/dev/null || true
 
-cat "${OUTDIR}/tomato_vs_potato.blast" \
-    "${OUTDIR}/tomato_vs_pepper.blast" \
-    "${OUTDIR}/potato_vs_pepper.blast" \
-    > "${OUTDIR}/all_species.blast" 2>/dev/null || true
+for pair in "tomato_vs_potato" "tomato_vs_pepper" "potato_vs_pepper"; do
+    [ -f "${OUTDIR}/${pair}.blast" ] && cat "${OUTDIR}/${pair}.blast"
+done > "${OUTDIR}/all_species.blast" 2>/dev/null || true
 
-if command -v MCScanX &>/dev/null; then
-    echo "Rodando MCScanX..."
-    MCScanX "${OUTDIR}/all_species" -a -e 1e-10 -s 5 -m 25 -w 5
-    echo "MCScanX concluído."
+if ! command -v MCScanX &>/dev/null; then
+    echo "  AVISO: MCScanX não encontrado."
+    echo "  Instale: mamba install -n kerson-paper -c bioconda mcscanx -y"
 else
-    echo ""
-    echo "MCScanX não encontrado. Instale: mamba install -c bioconda mcscanx"
-    echo "Ou use TBtools-II (GUI): Synteny → MCScanX Wrapper"
-fi
+    MCScanX "${OUTDIR}/all_species" -a -e 1e-10 -s 5 -m 25 -w 5
+    echo "  MCScanX concluído."
 
-# ── 5. Extrair blocos com os 7 RLPs focais ────────────────────────────────────
-export COLLINEARITY_PY="${OUTDIR}/all_species.collinearity"
-export OUTFILE_PY="${OUTDIR}/rlp_synteny_blocks.txt"
-export GENES_FILE_PY="$GENES_FILE"
+    # Extrair blocos com os 7 RLPs focais
+    export COLLINEARITY_PY="${OUTDIR}/all_species.collinearity"
+    export OUTFILE_PY="${OUTDIR}/rlp_synteny_blocks.txt"
+    export GENES_FILE_PY="$GENES_FILE"
 
-python3 << 'PYEOF'
+    python3 << 'PYEOF'
 import os, sys
 
 collinearity_file = os.environ["COLLINEARITY_PY"]
@@ -125,7 +190,7 @@ with open(genes_file) as f:
     genes_of_interest = [line.strip() for line in f if line.strip()]
 
 if not os.path.exists(collinearity_file):
-    print(f"Arquivo collinearity ainda não gerado: {collinearity_file}")
+    print(f"Arquivo collinearity não gerado: {collinearity_file}")
     sys.exit(0)
 
 with open(collinearity_file) as f_in, open(out_file, "w") as f_out:
@@ -144,10 +209,15 @@ with open(collinearity_file) as f_in, open(out_file, "w") as f_out:
     if block and keep:
         f_out.writelines(block)
 
-print(f"Blocos de sintenia com os 7 RLPs salvos: {out_file}")
+print(f"Blocos de sintenia com os 7 RLPs: {out_file}")
 PYEOF
+fi
 
 echo ""
-echo "VISUALIZAÇÃO FINAL: TBtools-II (GUI)"
-echo "  1. Advanced Circos Plot → ${OUTDIR}/all_species.collinearity"
-echo "  2. Filtrar por cromossomos dos 7 RLPs"
+echo "================================================================="
+echo " CONCLUIDO"
+echo " Resultados em: ${OUTDIR}/"
+echo "================================================================="
+echo ""
+echo "VISUALIZACAO: TBtools-II"
+echo "  Advanced Circos Plot -> ${OUTDIR}/all_species.collinearity"

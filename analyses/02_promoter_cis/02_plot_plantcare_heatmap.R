@@ -12,12 +12,44 @@ suppressPackageStartupMessages({
   library(RColorBrewer)
 })
 
-# ── Metadados dos genes ────────────────────────────────────────────────────────
+# ── Metadados dos 49 genes (ordem cromossômica) ───────────────────────────────
 gene_meta <- tibble(
-  gene_id = c("Solyc05g055190","Solyc03g112680","Solyc05g009990",
-               "Solyc12g042760","Solyc02g072250","Solyc02g092040","Solyc10g007830"),
-  label   = c("SlRLP1\n(CLV2)","SlRLP2","SlRLP3\n(RIC7)","SlRLP4\n(TMM)",
-               "SlRLP5\n(SNC2/3)","SlRLP6","SlRLP7")
+  gene_id = c(
+    "Solyc01g005730","Solyc01g005760","Solyc01g005780","Solyc01g005990",
+    "Solyc01g006550","Solyc01g008390","Solyc01g009690","Solyc01g009700",
+    "Solyc01g073680","Solyc01g087510","Solyc01g098370","Solyc01g098680",
+    "Solyc01g098690","Solyc01g099250","Solyc01g106500",
+    "Solyc02g021770","Solyc02g072250","Solyc02g092040",
+    "Solyc03g082780","Solyc03g083510","Solyc03g112680",
+    "Solyc04g014400",
+    "Solyc05g009990","Solyc05g054900","Solyc05g055190",
+    "Solyc06g008270","Solyc06g008300","Solyc06g033920",
+    "Solyc07g005150","Solyc07g008590","Solyc07g008600",
+    "Solyc07g008620","Solyc07g008630","Solyc07g008640",
+    "Solyc08g016270","Solyc08g077740",
+    "Solyc09g005090",
+    "Solyc10g007830","Solyc10g076500",
+    "Solyc11g011180",
+    "Solyc12g006020","Solyc12g009510","Solyc12g009520","Solyc12g013680",
+    "Solyc12g042760","Solyc12g049190","Solyc12g099870",
+    "Solyc12g099950","Solyc12g100030"
+  ),
+  label = c(
+    "SlRLP01","SlRLP02","SlRLP03","SlRLP04","SlRLP05","SlRLP06","SlRLP07","SlRLP08",
+    "SlRLP09","SlRLP10","SlRLP11","SlRLP12","SlRLP13","SlRLP14","SlRLP15",
+    "SlRLP16","SlRLP17*(SNC2/3)","SlRLP18*",
+    "SlRLP19","SlRLP20","SlRLP21*",
+    "SlRLP22",
+    "SlRLP23*(RIC7)","SlRLP24","SlRLP25*(CLV2)",
+    "SlRLP26","SlRLP27","SlRLP28",
+    "SlRLP29","SlRLP30","SlRLP31","SlRLP32","SlRLP33","SlRLP34",
+    "SlRLP35","SlRLP36",
+    "SlRLP37",
+    "SlRLP38*(Seca/Vírus)","SlRLP39",
+    "SlRLP40",
+    "SlRLP41","SlRLP42","SlRLP43","SlRLP44","SlRLP45*(TMM)","SlRLP46",
+    "SlRLP47","SlRLP48","SlRLP49"
+  )
 )
 
 # ── Dicionário de elementos cis por categoria funcional ───────────────────────

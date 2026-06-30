@@ -77,7 +77,8 @@ group_cols <- c(
 
 # ── Plot heatmap de expressão ─────────────────────────────────────────────────
 outfile <- "expression_atlas_heatmap.pdf"
-pdf(outfile, width = max(12, ncol(mat_z) * 0.5 + 4), height = 5)
+n_genes <- nrow(mat_z)
+pdf(outfile, width = max(12, ncol(mat_z) * 0.5 + 4), height = max(6, n_genes * 0.22 + 3))
 
 pheatmap(
   mat_z,
@@ -86,9 +87,9 @@ pheatmap(
   color          = colorRampPalette(rev(RColorBrewer::brewer.pal(11,"RdBu")))(100),
   border_color   = "grey80",
   cellwidth      = 22,
-  cellheight     = 26,
-  fontsize        = 9,
-  fontsize_row    = 10,
+  cellheight     = if (n_genes > 15) 12 else 26,
+  fontsize        = 8,
+  fontsize_row    = if (n_genes > 15) 7 else 10,
   fontsize_col    = 8,
   angle_col       = 45,
   annotation_col  = col_anno,
@@ -106,7 +107,7 @@ message("Heatmap salvo: ", outfile)
 
 # ── Plot de expressão absoluta (FPKM) ─────────────────────────────────────────
 outfile2 <- "expression_atlas_absolute.pdf"
-pdf(outfile2, width = max(12, ncol(mat) * 0.5 + 4), height = 5)
+pdf(outfile2, width = max(12, ncol(mat) * 0.5 + 4), height = max(6, n_genes * 0.22 + 3))
 
 pheatmap(
   mat,
@@ -115,9 +116,9 @@ pheatmap(
   color          = colorRampPalette(c("#F7F7F7","#fee090","#d73027"))(80),
   border_color   = "grey80",
   cellwidth      = 22,
-  cellheight     = 26,
-  fontsize        = 9,
-  fontsize_row    = 10,
+  cellheight     = if (n_genes > 15) 12 else 26,
+  fontsize        = 8,
+  fontsize_row    = if (n_genes > 15) 7 else 10,
   fontsize_col    = 8,
   angle_col       = 45,
   annotation_col  = col_anno,

@@ -13,7 +13,7 @@ GENOME="${DB_DIR}/S_lycopersicum_chromosomes.4.00.fa"
 GFF3="${DB_DIR}/ITAG4.0_gene_models.gff3"
 UPSTREAM=2000
 OUT_FA="${SCRIPT_DIR}/rlp_upstream_2kb.fa"
-GENES_FILE="${REPO_ROOT}/analyses/genes_7rlp.txt"
+GENES_FILE="${REPO_ROOT}/ids_49_rlp_tomato.txt"
 
 mkdir -p "$DB_DIR"
 
@@ -29,14 +29,20 @@ if [ ! -f "$GFF3" ]; then
     echo "[2/5] Baixando anotação GFF3 (ITAG4.1 → fallback REST API)..."
     GFF3_GZ="${DB_DIR}/gene_models.gff3.gz"
 
-    # Tentar ITAG4.1 (mesmo IDs Solyc, anotação mais recente)
+    # Tentar ITAG4.0 (anotação que corresponde ao genoma baixado)
+    ITAG40="https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.0_release/ITAG4.0_gene_models.gff3.gz"
     ITAG41="https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.1_release/ITAG4.1_gene_models.gff3.gz"
-    if wget -q --spider "$ITAG41" 2>/dev/null; then
+    if wget -q --spider "$ITAG40" 2>/dev/null; then
+        echo "GFF3 ITAG4.0 disponível — baixando (~100 MB)..."
+        wget -c -O "$GFF3_GZ" "$ITAG40"
+        gunzip -c "$GFF3_GZ" > "$GFF3"
+        echo "GFF3 obtido via ITAG4.0 SGN"
+    elif wget -q --spider "$ITAG41" 2>/dev/null; then
         wget -c -O "$GFF3_GZ" "$ITAG41"
         gunzip -c "$GFF3_GZ" > "$GFF3"
         echo "GFF3 obtido via ITAG4.1 SGN"
     else
-        echo "ITAG4.1 indisponível — usando EnsemblGenomes BioMart para os 7 genes..."
+        echo "GFF3 SGN indisponível — usando EnsemblGenomes BioMart para os 49 genes..."
         export GENES_PATH_PRE="$GENES_FILE"
         export GENOME_FAI_PRE="${GENOME}.fai"
         [ -f "${GENOME}.fai" ] || samtools faidx "$GENOME"

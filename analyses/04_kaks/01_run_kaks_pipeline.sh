@@ -22,13 +22,20 @@ mkdir -p "$OUTDIR"
 export OUTDIR_PY="$OUTDIR"
 export CDS_FA_PY="$CDS_FA"
 
-# ── Baixar CDS do ITAG4.0 (se ausente) ───────────────────────────────────────
+# ── CDS do ITAG4.0 ────────────────────────────────────────────────────────────
+# Fonte 1: arquivo local no repo com os 21 genes necessários para Ka/Ks
+REPO_CDS="${SCRIPT_DIR}/ITAG4.0_CDS_kaks_genes.fasta"
+
 if [ ! -f "$CDS_FA" ]; then
-    echo "Baixando CDS ITAG4.0..."
-    wget -c -P "$DB_DIR" \
-        "https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.0_release/ITAG4.0_CDS.fasta.gz"
-    gunzip "${DB_DIR}/ITAG4.0_CDS.fasta.gz"
-    mv "${DB_DIR}/ITAG4.0_CDS.fasta" "$CDS_FA"
+    if [ -f "$REPO_CDS" ]; then
+        echo "Usando CDS local do repo (21 genes pré-extraídos)..."
+        cp "$REPO_CDS" "$CDS_FA"
+    else
+        echo "Baixando CDS ITAG4.0 do SGN (35 MB — pode falhar no servidor UFV)..."
+        wget -c -q --show-progress -O "${DB_DIR}/ITAG4.0_CDS.fasta" \
+            "https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.0_release/ITAG4.0_CDS.fasta"
+        mv "${DB_DIR}/ITAG4.0_CDS.fasta" "$CDS_FA"
+    fi
 fi
 
 # ── Processar cada par ────────────────────────────────────────────────────────

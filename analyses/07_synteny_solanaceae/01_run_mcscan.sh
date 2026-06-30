@@ -19,15 +19,16 @@ GENES_FILE="${REPO_ROOT}/analyses/genes_7rlp.txt"
 
 mkdir -p "$DB_DIR" "$OUTDIR"
 
-# ── Arquivos tomato (do repositório — não dependem de rede) ──────────────────
+# ── Todos os arquivos vêm do repositório (git pull inclui tudo) ───────────────
+# Tomato: ITAG4.0 (SGN, 2019)
 REPO_TOMATO_GFF="${SCRIPT_DIR}/ITAG4.0_gene_models.gff.gz"
 REPO_TOMATO_PEP="${REPO_ROOT}/analyses/06_domain_architecture/ITAG4.0_proteins.fasta"
-
-# ── URLs NCBI (batata e pimenta — acessíveis no servidor UFV) ────────────────
-POTATO_GFF_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/226/075/GCA_000226075.1_DM_v6.1/GCA_000226075.1_DM_v6.1_genomic.gff.gz"
-POTATO_PEP_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/226/075/GCA_000226075.1_DM_v6.1/GCA_000226075.1_DM_v6.1_protein.faa.gz"
-PEPPER_GFF_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/710/875/GCA_000710875.1_Pepper_1.55/GCA_000710875.1_Pepper_1.55_genomic.gff.gz"
-PEPPER_PEP_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/710/875/GCA_000710875.1_Pepper_1.55/GCA_000710875.1_Pepper_1.55_protein.faa.gz"
+# Potato: EnsemblPlants release-61 (Solanum tuberosum SolTub_3.0)
+REPO_POTATO_GFF="${SCRIPT_DIR}/potato_gff.gff3.gz"
+REPO_POTATO_PEP="${SCRIPT_DIR}/potato_pep.fa.gz"
+# Pepper: EnsemblPlants release-61 (Capsicum annuum ASM51225v2)
+REPO_PEPPER_GFF="${SCRIPT_DIR}/pepper_gff.gff3.gz"
+REPO_PEPPER_PEP="${SCRIPT_DIR}/pepper_pep.fa.gz"
 
 echo "================================================================="
 echo " 01_run_mcscan.sh — Sintenia Solanaceae (MCScanX)"
@@ -65,31 +66,29 @@ else
 fi
 
 # ── 2. Download batata e pimenta (NCBI — acessível no servidor) ───────────────
-echo "[2/5] Baixando anotações batata/pimenta do NCBI..."
+echo "[2/5] Preparando anotações batata/pimenta (do repositório)..."
 
-download_ncbi() {
-    local name="$1"
-    local url="$2"
-    local final="${DB_DIR}/${name}"
-    if [ -f "$final" ]; then
-        echo "  ${name} já disponível."
+copy_repo_file() {
+    local repo_src="$1"
+    local dest_name="$2"
+    local dest="${DB_DIR}/${dest_name}"
+    if [ -f "$dest" ]; then
+        echo "  ${dest_name} já disponível."
         return
     fi
-    echo "  Baixando ${name}..."
-    if wget -q -c --timeout=60 -O "${final}.gz" "$url" 2>/dev/null; then
-        gunzip -c "${final}.gz" > "$final"
-        rm -f "${final}.gz"
-        echo "  OK: ${name}"
-    else
-        echo "  AVISO: falha ao baixar ${name} — será pulado na análise."
-        rm -f "${final}.gz"
+    if [ ! -f "$repo_src" ]; then
+        echo "  ERRO: ${repo_src} não encontrado — rode: git pull"
+        exit 1
     fi
+    echo "  Descomprimindo ${dest_name}..."
+    gunzip -c "$repo_src" > "$dest"
+    echo "  OK: ${dest_name}"
 }
 
-download_ncbi "potato.gff"  "$POTATO_GFF_URL"
-download_ncbi "potato_pep"  "$POTATO_PEP_URL"
-download_ncbi "pepper.gff"  "$PEPPER_GFF_URL"
-download_ncbi "pepper_pep"  "$PEPPER_PEP_URL"
+copy_repo_file "$REPO_POTATO_GFF" "potato.gff"
+copy_repo_file "$REPO_POTATO_PEP" "potato_pep"
+copy_repo_file "$REPO_PEPPER_GFF" "pepper.gff"
+copy_repo_file "$REPO_PEPPER_PEP" "pepper_pep"
 
 # ── 3. GFF → BED para MCScanX ─────────────────────────────────────────────────
 echo "[3/5] Convertendo GFF → BED..."

@@ -4,11 +4,11 @@
 # Executar no servidor: eulalio@200.235.143.10
 # Ambiente: mamba activate kerson-paper
 #
-# NOTA (2026-06-30): SGN FTP e EnsemblPlants FTP são INACESSÍVEIS no servidor UFV.
-# Estratégia atualizada (em ordem de preferência):
-#   1. NCBI FTP  — ftp.ncbi.nlm.nih.gov (GCF_000188115.5 = SL4.0, proteínas RefSeq)
-#   2. SGN FTP   — ftp.solgenomics.net (ITAG4.0, fonte oficial — inacessível)
-#   3. EnsemblPlants FTP — ftp.ensemblgenomes.ebi.ac.uk (inacessível)
+# Estratégia (em ordem de preferência):
+#   1. Arquivo local no repo (analyses/06_domain_architecture/ITAG4.0_proteins.fasta)
+#      — commitado no git, obtido via `git pull` sem depender de rede externa
+#   2. SGN FTP (ftp.solgenomics.net — inacessível no servidor UFV)
+#   3. Cópia manual via SCP do notebook Windows
 #
 # Entrada:  ../../ids_49_rlp_tomato.txt  (49 IDs)
 # Saída:    proteins_49rlp.fa            (input para 01_run_hmmer.sh)
@@ -20,6 +20,7 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 IDS_FILE="${REPO_ROOT}/ids_49_rlp_tomato.txt"
 DB_DIR="/home/eulalio/databases/itag4.0"
 PROTEOME="${DB_DIR}/ITAG4.0_proteins.fa"
+REPO_PROTEOME="${SCRIPT_DIR}/ITAG4.0_proteins.fasta"
 OUT_FA="${SCRIPT_DIR}/proteins_49rlp.fa"
 
 mkdir -p "$DB_DIR"
@@ -31,58 +32,33 @@ echo " Saída: ${OUT_FA}"
 echo "================================================================="
 echo ""
 
-# ── Download do proteoma ITAG4.0 ──────────────────────────────────────────────
+# ── [1/3] Proteoma ITAG4.0 ────────────────────────────────────────────────────
 if [ ! -f "$PROTEOME" ]; then
-    echo "[1/3] Baixando proteoma ITAG4.0..."
+    echo "[1/3] Configurando proteoma ITAG4.0..."
 
-    # URL 1: NCBI FTP (GCF_000188115.5 = SL4.0, RefSeq proteins — acessível no servidor UFV)
-    NCBI_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/188/115/GCF_000188115.5_SL4.0/GCF_000188115.5_SL4.0_protein.faa.gz"
+    # Fonte 1: arquivo local no repositório (commitado no Windows, obtido via git pull)
+    if [ -f "$REPO_PROTEOME" ]; then
+        echo "  Usando cópia local do repo (git pull incluiu ITAG4.0_proteins.fasta)..."
+        cp "$REPO_PROTEOME" "$PROTEOME"
+        echo "  Proteoma copiado de ${REPO_PROTEOME}"
 
-    # URL 2: SGN FTP (ITAG4.0 canônico — inacessível no servidor UFV mas mantido como fallback)
-    SGN_URL="https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.0_release/ITAG4.0_proteins.fasta.gz"
-
-    # URL 3: EnsemblPlants FTP (inacessível no servidor UFV mas mantido como fallback)
-    ENSEMBL_BASE="https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/current/fasta/solanum_lycopersicum/pep/"
-
-    echo "  Testando URL primária: NCBI FTP (GCF_000188115.5)..."
-    if wget -q --spider --timeout=20 "$NCBI_URL" 2>/dev/null; then
-        echo "  NCBI FTP acessível — baixando (~40 MB)..."
-        wget -c -q --show-progress -O "${DB_DIR}/ncbi_proteins.faa.gz" "$NCBI_URL"
-        gunzip -c "${DB_DIR}/ncbi_proteins.faa.gz" > "$PROTEOME"
-        rm -f "${DB_DIR}/ncbi_proteins.faa.gz"
-        echo "  Proteoma obtido via NCBI FTP (RefSeq GCF_000188115.5)"
+    # Fonte 2: SGN FTP — URL sem .gz (arquivo descomprimido, 12 MB)
     else
-        echo "  NCBI FTP inacessível — tentando SGN FTP..."
+        SGN_URL="https://ftp.solgenomics.net/tomato_genome/annotation/ITAG4.0_release/ITAG4.0_proteins.fasta"
+        echo "  Arquivo local ausente — tentando SGN FTP (pode falhar no servidor UFV)..."
         if wget -q --spider --timeout=15 "$SGN_URL" 2>/dev/null; then
-            echo "  SGN FTP acessível — baixando (~50 MB)..."
-            wget -c -q --show-progress -O "${DB_DIR}/ITAG4.0_proteins.fasta.gz" "$SGN_URL"
-            gunzip -c "${DB_DIR}/ITAG4.0_proteins.fasta.gz" > "$PROTEOME"
-            rm -f "${DB_DIR}/ITAG4.0_proteins.fasta.gz"
-            echo "  Proteoma obtido via SGN"
+            echo "  SGN acessível — baixando (~12 MB)..."
+            wget -c -q --show-progress -O "$PROTEOME" "$SGN_URL"
+            echo "  Proteoma obtido via SGN FTP"
         else
-            echo "  SGN FTP inacessível — tentando EnsemblPlants FTP..."
-            LISTING=$(wget -q --timeout=20 -O- "$ENSEMBL_BASE" 2>/dev/null || true)
-            ENSEMBL_FILE=""
-            if [ -n "$LISTING" ]; then
-                ENSEMBL_FILE=$(echo "$LISTING" | grep -oP 'Solanum_lycopersicum\.SL4\.0\.\d+\.pep\.all\.fa\.gz' | head -1 || true)
-            fi
-
-            if [ -n "$ENSEMBL_FILE" ]; then
-                ENSEMBL_URL="${ENSEMBL_BASE}${ENSEMBL_FILE}"
-                echo "  Baixando ${ENSEMBL_URL}..."
-                wget -c -q --show-progress -O "${DB_DIR}/ensembl_proteins.fa.gz" "$ENSEMBL_URL"
-                gunzip -c "${DB_DIR}/ensembl_proteins.fa.gz" > "$PROTEOME"
-                rm -f "${DB_DIR}/ensembl_proteins.fa.gz"
-                echo "  Proteoma obtido via EnsemblPlants"
-            else
-                echo ""
-                echo "  ERRO: Nenhuma fonte de proteoma acessível."
-                echo "  Baixe manualmente no NOTEBOOK WINDOWS e copie via SCP:"
-                echo "    wget -O proteins.faa.gz '${NCBI_URL}'"
-                echo "    gunzip proteins.faa.gz"
-                echo "    scp proteins.faa eulalio@200.235.143.10:${PROTEOME}"
-                exit 1
-            fi
+            echo ""
+            echo "  ERRO: Proteoma indisponível."
+            echo "  No NOTEBOOK WINDOWS, já está em:"
+            echo "    C:\\Users\\eulal\\kerson-paper\\analyses\\06_domain_architecture\\ITAG4.0_proteins.fasta"
+            echo "  Copie via SCP:"
+            echo "    scp C:\\Users\\eulal\\kerson-paper\\analyses\\06_domain_architecture\\ITAG4.0_proteins.fasta \\"
+            echo "        eulalio@200.235.143.10:${PROTEOME}"
+            exit 1
         fi
     fi
 else

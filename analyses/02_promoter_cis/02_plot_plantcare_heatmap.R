@@ -68,9 +68,11 @@ cis_dict <- list(
                          "TGA-element","TGA1a","ARE"),
   "GA"               = c("GARE-motif","P-box","TATC-box","GARE","gibberellin-responsive element"),
   "Etileno"          = c("GCC-box","ERE"),
-  "Desenvolvimento"  = c("CAT-box","CCAAT-box","as-2-element","CAAT-box","AAGAA-motif"),
-  "Circadiano"       = c("circadian","Evening Element"),
-  "Anaerobiose"      = c("ARE","anaerobic")
+  "Desenvolvimento"  = c("CAT-box","CCAAT-box","as-2-element"),
+  "Circadiano"       = c("circadian","Evening Element")
+  # EXCLUÍDOS (ubíquos/inespecíficos): CAAT-box (49/49), TATA-box (49/49),
+  #   AAGAA-motif (34/49, função desconhecida), TCT-motif (33/49), MYC (48/49),
+  #   AT~TATA-box, Unnamed__*, ARE (ambíguo)
 )
 
 cis_df <- tibble(
@@ -185,54 +187,51 @@ ann_colors_full <- list(
 )
 
 # Gaps entre categorias funcionais
-gap_cols <- cumsum(table(col_anno$Categoria)[unique(col_anno$Categoria)])[-n_cats]
+gap_cols <- if (n_cats > 1)
+  cumsum(table(col_anno$Categoria)[unique(col_anno$Categoria)])[-n_cats]
+else integer(0)
 
-# ── Plot qualidade de publicação ──────────────────────────────────────────────
-fig_w   <- max(12, ncol(mat) * 0.50 + 4)
-fig_h   <- max(10, nrow(mat) * 0.24 + 3)
+# ── Dimensões de publicação — double-column (174 mm) ─────────────────────────
+# Não usar cellwidth/cellheight fixos: deixar pheatmap auto-escalar dentro da área
+W_in    <- 174 / 25.4           # 6.85 pol (double-column padrão)
+H_in    <- max(8, nrow(mat) * 0.19 + 3.5)   # altura dinâmica por gene
 outfile <- "plantcare_heatmap.pdf"
 
-cairo_pdf(outfile, width = fig_w, height = fig_h, family = "Helvetica")
-pheatmap(
+message(sprintf("Gerando heatmap: %d genes x %d motivos | %.1f x %.1f pol",
+                nrow(mat), ncol(mat), W_in, H_in))
+
+plot_args <- list(
   mat,
   cluster_rows      = FALSE,
   cluster_cols      = FALSE,
   color             = colorRampPalette(c("#FFFFFF","#FFF3CD","#FF8C00","#7B241C"))(60),
-  border_color      = "grey80",
-  cellwidth         = 18,
-  cellheight        = 16,
-  fontsize          = 8,
-  fontsize_row      = 8.5,
-  fontsize_col      = 7.5,
+  border_color      = "grey82",
+  fontsize          = 7,
+  fontsize_row      = 7.5,
+  fontsize_col      = 7,
   angle_col         = 45,
   annotation_col    = col_anno,
   annotation_row    = row_anno,
   annotation_colors = ann_colors_full,
   annotation_names_col = TRUE,
   annotation_names_row = FALSE,
-  main              = "Elementos cis-regulatórios em promotores de LRR-RLPs (2 kb upstream, PlantCARE)",
   display_numbers   = TRUE,
   number_format     = "%d",
-  number_color      = "black",
-  gaps_col          = gap_cols
+  number_color      = "grey20",
+  gaps_col          = gap_cols,
+  silent            = TRUE
 )
+
+cairo_pdf(outfile, width = W_in, height = H_in, family = "Helvetica")
+do.call(pheatmap, c(plot_args, list(
+  main = "Elementos cis-regulatórios em promotores de LRR-RLPs (2 kb upstream, PlantCARE)"
+)))
 dev.off()
-message(sprintf("PDF publicação: %s (%.0f × %.0f mm)", outfile, fig_w*25.4, fig_h*25.4))
+message(sprintf("PDF publicação: %s (%.0f x %.0f mm)", outfile, W_in*25.4, H_in*25.4))
 
 png(sub("\\.pdf$",".png", outfile),
-    width = fig_w, height = fig_h, units = "in", res = 300, type = "cairo")
-pheatmap(
-  mat,
-  cluster_rows      = FALSE, cluster_cols = FALSE,
-  color             = colorRampPalette(c("#FFFFFF","#FFF3CD","#FF8C00","#7B241C"))(60),
-  border_color      = "grey80", cellwidth = 18, cellheight = 16,
-  fontsize = 8, fontsize_row = 8.5, fontsize_col = 7.5, angle_col = 45,
-  annotation_col = col_anno, annotation_row = row_anno,
-  annotation_colors = ann_colors_full,
-  main = "Elementos cis-regulatórios — LRR-RLPs (PlantCARE)",
-  display_numbers = TRUE, number_format = "%d", number_color = "black",
-  gaps_col = gap_cols
-)
+    width = W_in, height = H_in, units = "in", res = 300, type = "cairo")
+do.call(pheatmap, c(plot_args, list(main = "PlantCARE — LRR-RLP promoters (2 kb)")))
 dev.off()
 message("PNG 300 dpi: ", sub("\\.pdf$",".png", outfile))
 

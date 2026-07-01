@@ -41,7 +41,14 @@ df <- raw %>%
     gene_B = str_extract(pair, "(?<=-).+"),
     chrom_A = str_extract(gene_A, "(?<=Solyc)\\d+"),
     chrom_B = str_extract(gene_B, "(?<=Solyc)\\d+"),
-    tipo = if_else(chrom_A == chrom_B, "Tandem", "Segmental"),
+    # Número do locus (ex: Solyc02g072250 → 72250); diferença > 2000 → Segmental
+    locus_A = as.numeric(str_replace(gene_A, "Solyc\\d+g0*(\\d+)", "\\1")),
+    locus_B = as.numeric(str_replace(gene_B, "Solyc\\d+g0*(\\d+)", "\\1")),
+    tipo = case_when(
+      chrom_A != chrom_B                  ~ "Segmental",
+      abs(locus_A - locus_B) > 2000      ~ "Segmental",
+      TRUE                               ~ "Tandem"
+    ),
     focal = pair %in% FOCAL_PAIRS,
     # Rótulo compacto: cromossomo + posição reduzida
     label_short = paste0(

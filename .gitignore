@@ -10,9 +10,14 @@ analyses/06_domain_architecture/hmmer_out/
 analyses/07_synteny_solanaceae/mcscan_results/
 results/
 
-# ── Outputs intermediários ─────────────────────────────────────────────────
+# ── Outputs intermediários (gerados por scripts em runtime, não versionar) ─
 analyses/02_promoter_cis/plantcare_counts.csv
 analyses/06_domain_architecture/domain_counts.tsv
+analyses/02_promoter_cis/fimo_parsed_49genes.tsv
+analyses/02_promoter_cis/fimo_parsed_counts.csv
+analyses/02_promoter_cis/fimo_parsed_tf_families.tsv
+analyses/02_promoter_cis/fimo_out/
+analyses/04_kaks/results/
 *.log
 *.tmp
 /tmp/

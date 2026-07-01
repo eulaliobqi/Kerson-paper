@@ -42,7 +42,9 @@ mamba install -n "$ENV_NAME" -c conda-forge -c bioconda -y \
     r-rcolorbrewer \
     r-gggenes \
     r-scales \
-    r-gridextra
+    r-gridextra \
+    r-ggnewscale \
+    r-ggrepel
 
 # PyMOL (separado — às vezes tem conflito de canal)
 mamba install -n "$ENV_NAME" -c conda-forge -y pymol-open-source || \

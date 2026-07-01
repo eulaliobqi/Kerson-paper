@@ -16,6 +16,11 @@ O PlantCARE pode entregar o resultado em dois formatos:
   C) CSV com vírgula
 
 O script detecta automaticamente o formato.
+Modo automático de detecção:
+  D) Sequência MERGED (todos os hits com mesmo seq ID ou posição 1–98000):
+     PlantCARE concatenou as 49 sequências de 2000 bp em 1 de 98000 nt.
+     Neste caso, gene_index = (abs(location) - 1) // UPSTREAM_LEN
+     e o gene é GENE_IDS[gene_index].
 """
 
 import sys
@@ -59,6 +64,9 @@ CIS_ELEMENTS = [
     "circadian","Evening Element",
 ]
 CIS_SET = set(e.upper() for e in CIS_ELEMENTS)
+
+# Comprimento de cada sequência upstream submetida (bp)
+UPSTREAM_LEN = 2000
 
 
 def detect_format(lines):
@@ -168,29 +176,72 @@ def main():
 
     print(f"Total de hits: {len(rows)}")
 
+    # ── Detectar modo: per-gene (Solyc IDs) ou merged (posição 1–98000) ──────
+    gene_id_set = set(GENE_IDS)
+    seq_ids_in_result = {r['sequence'] for r in rows}
+
+    # Modo merged: nenhum seq_id é um Solyc ID reconhecido
+    is_merged = not any(
+        re.sub(r'\.\d+$', '', sid) in gene_id_set
+        for sid in seq_ids_in_result
+    )
+
+    if is_merged:
+        print(f"Modo MERGED detectado: {len(seq_ids_in_result)} seq_id(s) únicos → "
+              f"remapeando posição para gene (UPSTREAM_LEN={UPSTREAM_LEN})")
+        print(f"  Seq IDs no resultado: {sorted(seq_ids_in_result)[:5]}...")
+
+        def pos_to_gene(location_str):
+            """Posição absoluta dentro da sequência concatenada → gene ID."""
+            try:
+                pos = int(location_str)
+                # PlantCARE às vezes reporta posições negativas (strand -)
+                # Usar valor absoluto para encontrar o gene
+                idx = (abs(pos) - 1) // UPSTREAM_LEN
+                if 0 <= idx < len(GENE_IDS):
+                    return GENE_IDS[idx]
+            except (ValueError, TypeError):
+                pass
+            return None
+
+        # Reescrever rows com gene_id correto
+        for r in rows:
+            g = pos_to_gene(r['location'])
+            r['gene_id'] = g if g else "UNKNOWN"
+            # Reposicionar location relativo ao gene (1-2000)
+            try:
+                pos = int(r['location'])
+                r['location_in_gene'] = ((abs(pos) - 1) % UPSTREAM_LEN) + 1
+            except (ValueError, TypeError):
+                r['location_in_gene'] = r['location']
+    else:
+        print("Modo PER-GENE detectado: seq IDs são Solyc IDs")
+        for r in rows:
+            r['gene_id'] = re.sub(r'\.\d+$', '', r['sequence'])
+            r['location_in_gene'] = r['location']
+
     # ── Escrever TSV normalizado ─────────────────────────────────────────────
     out_tsv = infile.parent / "plantcare_parsed_49genes.tsv"
     with open(out_tsv, 'w', newline='', encoding='utf-8') as f:
         w = csv.writer(f, delimiter='\t')
         w.writerow(["Sequence","Signal","Location","Strand","Function"])
         for r in rows:
-            w.writerow([r['sequence'], r['signal'], r['location'], r['strand'], r['function']])
+            w.writerow([r['gene_id'], r['signal'], r['location_in_gene'],
+                        r['strand'], r['function']])
     print(f"TSV normalizado: {out_tsv}")
 
     # ── Construir matriz gene × motivo ───────────────────────────────────────
     counts = defaultdict(lambda: defaultdict(int))
     unknown_genes = set()
     for r in rows:
-        gid = r['sequence']
-        # Aceitar tanto Solyc ID direto quanto Solyc ID com sufixo de isoforma
-        gid_base = re.sub(r'\.\d+$', '', gid)
-        if gid_base not in GENE_IDS:
+        gid = r['gene_id']
+        if gid not in gene_id_set:
             unknown_genes.add(gid)
             continue
-        counts[gid_base][r['signal']] += 1
+        counts[gid][r['signal']] += 1
 
     if unknown_genes:
-        print(f"AVISO: {len(unknown_genes)} IDs não reconhecidos no resultado PlantCARE:")
+        print(f"AVISO: {len(unknown_genes)} hits não mapeados para nenhum gene:")
         for g in sorted(unknown_genes)[:10]:
             print(f"  {g}")
 

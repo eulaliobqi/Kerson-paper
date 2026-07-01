@@ -76,7 +76,6 @@ mamba run -n "$ENV" fimo \
     --thresh "$PVAL_THRESH" \
     --qv-thresh "$QVAL_THRESH" \
     --max-stored-scores 2000000 \
-    --parse-genomic-coord \
     "$JASPAR_DB" \
     "$UPSTREAM_FA"
 

@@ -1,27 +1,22 @@
 #!/usr/bin/env Rscript
-# 04_plot_fimo_heatmap.R
-# Heatmap de fatores de transcrição (JASPAR2024) nos promotores (2kb)
-# dos 49 LRR-RLPs — alternativa server-side ao PlantCARE.
-#
-# Uso:
-#   Rscript 04_plot_fimo_heatmap.R fimo_parsed_counts.csv [fimo_parsed_tf_families.tsv]
+# 04_plot_fimo_heatmap.R — Heatmap TFs (JASPAR2024) × 49 LRR-RLPs
+# Uso: Rscript 04_plot_fimo_heatmap.R fimo_parsed_counts.csv [fimo_parsed_tf_families.tsv]
+# Saída: fimo_tf_heatmap.pdf (174 mm double-column) + PNG 300 dpi
 
 suppressPackageStartupMessages({
   library(tidyverse)
   library(pheatmap)
   library(RColorBrewer)
-  library(scales)
 })
 
 script_dir <- tryCatch(dirname(normalizePath(sys.frame(0)$ofile)), error = function(e) getwd())
 setwd(script_dir)
 
-# ── Argumentos ───────────────────────────────────────────────────────────────
 args        <- commandArgs(trailingOnly = TRUE)
 counts_file <- if (length(args) > 0) args[1] else "fimo_parsed_counts.csv"
 ann_file    <- if (length(args) > 1) args[2] else "fimo_parsed_tf_families.tsv"
 
-# ── Metadados dos 49 genes ───────────────────────────────────────────────────
+# ── Metadados dos 49 genes ────────────────────────────────────────────────────
 focal_ids <- c("Solyc05g055190","Solyc03g112680","Solyc05g009990",
                "Solyc12g042760","Solyc02g072250","Solyc02g092040","Solyc10g007830")
 
@@ -64,149 +59,167 @@ gene_meta <- tibble(
   )
 ) %>% mutate(focal = gene_id %in% focal_ids)
 
-# ── Ler contagens FIMO ───────────────────────────────────────────────────────
+# Ordem de categorias para colunas
+cat_order <- c("SA / Defesa","JA / Defesa","ABA / Defesa","ABA / Seca",
+               "Etileno / Defesa","Luz / Desenvolvimento","Luz / GA",
+               "GA / Desenvolvimento","Brassinoesteroides","Circadiano",
+               "Desenvolvimento","Meristema","Estresse térmico","Outros")
+
+# ── Ler dados ─────────────────────────────────────────────────────────────────
 if (!file.exists(counts_file)) {
-  message("[DEMO] Gerando dados simulados (FIMO não rodou ainda)...")
+  message("[DEMO] fimo_parsed_counts.csv nao encontrado — modo demonstracao")
   set.seed(42)
-  demo_tfs <- c("WRKY6","WRKY18","WRKY40","WRKY70","ABF1","ABF2","ABF3","ABF4",
-                "MYB2","MYB96","ERF1","ORA59","PIF1","PIF3","PIF4","BES1","HY5",
-                "NAC16","NAC29","TCP4","MYC2","MYC3","EIN3","ABI3","ABI5",
-                "GATA17","DOF2.1","DOF5.1","HSF1","CCA1")
+  demo_tfs <- c("WRKY6","WRKY18","WRKY40","WRKY70","MYC2","MYC3",
+                "ABF1","ABF2","MYB2","MYB96","ERF1","ORA59","PIF4","BES1",
+                "HY5","NAC16","NAC29","CCA1","HSF1","TCP4")
   mat <- matrix(
-    sample(0:5, length(gene_meta$gene_id) * length(demo_tfs), replace = TRUE,
-           prob = c(0.45, 0.25, 0.14, 0.08, 0.05, 0.03)),
-    nrow = length(gene_meta$gene_id),
+    sample(0:4, length(gene_meta$label) * length(demo_tfs), replace = TRUE,
+           prob = c(0.50, 0.22, 0.14, 0.09, 0.05)),
+    nrow = length(gene_meta$label),
     dimnames = list(gene_meta$label, demo_tfs)
   )
   tf_ann <- tibble(
     tf_name  = demo_tfs,
-    family   = c(rep("WRKY",4), rep("bZIP",4), rep("MYB",2), rep("AP2/ERF",2),
-                 rep("bHLH",5), "NAC","NAC","TCP","bHLH","bHLH","EIL","bZIP","bZIP",
-                 "GATA","Dof","Dof","HSF","MYB"),
-    category = c(rep("SA / Defesa",4), rep("ABA / Defesa",4), rep("ABA / Seca",2),
-                 rep("Etileno / Defesa",2), "Luz / Desenvolvimento","Luz / Desenvolvimento",
-                 "Luz / Desenvolvimento","Brassinoesteroides","Luz / Desenvolvimento",
-                 "Desenvolvimento","Desenvolvimento","Desenvolvimento",
-                 "JA / Desenvolvimento","JA / Desenvolvimento","Etileno","ABA / Defesa",
-                 "ABA / Defesa","Desenvolvimento","Luz / GA","Luz / GA",
-                 "Estresse térmico","Circadiano")
+    family   = c("WRKY","WRKY","WRKY","WRKY","bHLH","bHLH",
+                 "bZIP","bZIP","MYB","MYB","AP2/ERF","AP2/ERF",
+                 "bHLH","BES1","HY5","NAC","NAC","MYB-related","HSF","TCP"),
+    category = c("SA / Defesa","SA / Defesa","SA / Defesa","SA / Defesa",
+                 "JA / Defesa","JA / Defesa",
+                 "ABA / Defesa","ABA / Defesa","ABA / Seca","ABA / Seca",
+                 "Etileno / Defesa","Etileno / Defesa",
+                 "Luz / Desenvolvimento","Brassinoesteroides",
+                 "Luz / Desenvolvimento","Desenvolvimento","Desenvolvimento",
+                 "Circadiano","Estresse térmico","Desenvolvimento")
   )
 } else {
   raw <- read_csv(counts_file, show_col_types = FALSE)
-  mat_df <- raw %>%
-    left_join(gene_meta %>% select(gene_id = gene_id, label), by = c("gene" = "gene_id")) %>%
-    mutate(label = if_else(is.na(label), gene, label)) %>%
+  mat <- raw %>%
+    rename(gene_id = gene) %>%
+    left_join(gene_meta %>% select(gene_id, label), by = "gene_id") %>%
+    mutate(label = coalesce(label, gene_id)) %>%
+    select(-gene_id) %>%
     column_to_rownames("label") %>%
-    select(-gene) %>%
     as.matrix()
-  mat <- mat_df[gene_meta$label[gene_meta$label %in% rownames(mat_df)], ]
+  # Ordenar linhas por gene_meta
+  mat <- mat[intersect(gene_meta$label, rownames(mat)), , drop = FALSE]
   mat <- mat[, colSums(mat) > 0, drop = FALSE]
 
   if (file.exists(ann_file)) {
     tf_ann <- read_tsv(ann_file, show_col_types = FALSE)
   } else {
-    tf_ann <- tibble(tf_name = colnames(mat), family = "Desconhecida", category = "Outros")
+    tf_ann <- tibble(tf_name  = colnames(mat),
+                     family   = "Desconhecida",
+                     category = "Outros")
   }
 }
 
-# ── Filtrar: manter apenas TFs presentes em ≥ 3 genes ───────────────────────
-keep_tfs <- colnames(mat)[colSums(mat > 0) >= 3]
-mat <- mat[, keep_tfs, drop = FALSE]
-tf_ann <- tf_ann %>% filter(tf_name %in% keep_tfs)
+# ── Filtro: TFs presentes em ≥ 3 dos 49 genes ────────────────────────────────
+keep <- colnames(mat)[colSums(mat > 0) >= 3]
+mat     <- mat[, keep, drop = FALSE]
+tf_ann  <- tf_ann %>% filter(tf_name %in% keep)
 
-# Ordenar colunas por categoria funcional
-cat_order <- c("SA / Defesa","ABA / Defesa","ABA / Seca","Etileno / Defesa",
-               "JA / Desenvolvimento","Luz / Desenvolvimento","Luz / GA",
-               "GA / Desenvolvimento","Brassinoesteroides","Circadiano",
-               "Desenvolvimento","Desenvolvimento floral","Meristema",
-               "Estresse térmico","Outros")
-tf_ann_ord <- tf_ann %>%
-  filter(tf_name %in% colnames(mat)) %>%
+if (ncol(mat) == 0) stop("Nenhum TF passou o filtro de >=3 genes. Verifique o parse.")
+
+# Ordenar colunas por categoria → família → nome
+tf_ord <- tf_ann %>%
   mutate(cat_rank = match(category, cat_order, nomatch = 99)) %>%
-  arrange(cat_rank, family, tf_name)
-mat <- mat[, tf_ann_ord$tf_name[tf_ann_ord$tf_name %in% colnames(mat)], drop = FALSE]
+  arrange(cat_rank, family, tf_name) %>%
+  filter(tf_name %in% colnames(mat))
+mat <- mat[, tf_ord$tf_name[tf_ord$tf_name %in% colnames(mat)], drop = FALSE]
 
-# ── Anotação de colunas ───────────────────────────────────────────────────────
+message(sprintf("Heatmap: %d genes × %d TFs", nrow(mat), ncol(mat)))
+
+# ── Anotações de colunas e linhas ─────────────────────────────────────────────
 col_anno <- data.frame(
-  Família    = tf_ann_ord$family[tf_ann_ord$tf_name %in% colnames(mat)],
-  Categoria  = tf_ann_ord$category[tf_ann_ord$tf_name %in% colnames(mat)],
-  row.names  = colnames(mat)
+  Família   = tf_ord$family[tf_ord$tf_name %in% colnames(mat)],
+  Categoria = tf_ord$category[tf_ord$tf_name %in% colnames(mat)],
+  row.names = colnames(mat)
 )
 
 n_fam  <- length(unique(col_anno$Família))
 n_cat  <- length(unique(col_anno$Categoria))
+
 fam_cols <- setNames(
   colorRampPalette(c("#E41A1C","#377EB8","#4DAF4A","#984EA3","#FF7F00",
-                     "#A65628","#F781BF","#999999","#66C2A5","#FC8D62"))(n_fam),
+                     "#A65628","#F781BF","#999999","#66C2A5","#FC8D62",
+                     "#8DA0CB","#E78AC3","#A6D854"))(n_fam),
   unique(col_anno$Família)
 )
 cat_cols <- setNames(
-  colorRampPalette(brewer.pal(9, "Set1"))(n_cat),
+  colorRampPalette(brewer.pal(min(n_cat, 9), "Set1"))(n_cat),
   unique(col_anno$Categoria)
 )
 
-# Anotação de linhas: destacar genes focais
 row_anno <- data.frame(
-  Focal = ifelse(gene_meta$focal[gene_meta$label %in% rownames(mat)], "Sim", "Não"),
+  Focal = ifelse(rownames(mat) %in% gene_meta$label[gene_meta$focal], "Sim", "Não"),
   row.names = rownames(mat)
 )
-row_ann_cols <- list(
-  Focal = c("Sim" = "#2C3E50", "Não" = "#ECF0F1"),
+
+ann_colors <- list(
+  Focal     = c("Sim" = "#1A252F", "Não" = "#ECF0F1"),
   Família   = fam_cols,
   Categoria = cat_cols
 )
 
-# ── Plot ──────────────────────────────────────────────────────────────────────
-fig_w <- max(14, ncol(mat) * 0.38 + 5)
-fig_h <- max(10, nrow(mat) * 0.28 + 3)
+# Gaps entre categorias
+cats_present <- col_anno$Categoria[!duplicated(col_anno$Categoria)]
+n_cats_p <- length(cats_present)
+if (n_cats_p > 1) {
+  gap_cols <- cumsum(table(col_anno$Categoria)[cats_present])[-n_cats_p]
+} else {
+  gap_cols <- integer(0)
+}
+
+# ── Dimensões de publicação: 174 mm double-column ────────────────────────────
+W_in  <- 174 / 25.4                          # 6.85 pol
+H_in  <- max(8, nrow(mat) * 0.17 + 4.5)     # altura dinâmica
+
+plot_args <- list(
+  mat,
+  cluster_rows      = FALSE,
+  cluster_cols      = FALSE,
+  color             = colorRampPalette(c("#FFFFFF","#FFF3CD","#FF8C00","#7B241C"))(60),
+  border_color      = "grey82",
+  fontsize          = 7,
+  fontsize_row      = 7.5,
+  fontsize_col      = 7,
+  angle_col         = 45,
+  annotation_col    = col_anno,
+  annotation_row    = row_anno,
+  annotation_colors = ann_colors,
+  annotation_names_col = TRUE,
+  annotation_names_row = FALSE,
+  display_numbers   = TRUE,
+  number_format     = "%d",
+  number_color      = "grey20",
+  gaps_col          = gap_cols,
+  silent            = TRUE
+)
 
 outfile <- "fimo_tf_heatmap.pdf"
-cairo_pdf(outfile, width = fig_w, height = fig_h)
-pheatmap(
-  mat,
-  cluster_rows    = FALSE,
-  cluster_cols    = FALSE,
-  color           = colorRampPalette(c("#FFFFFF","#FFF3CD","#FF8C00","#7B241C"))(50),
-  border_color    = "grey85",
-  cellwidth       = 18,
-  cellheight      = 16,
-  fontsize        = 8,
-  fontsize_row    = 9,
-  fontsize_col    = 7.5,
-  angle_col       = 45,
-  annotation_col  = col_anno,
-  annotation_row  = row_anno,
-  annotation_colors = row_ann_cols,
-  main            = "Fatores de transcrição nos promotores de LRR-RLPs (JASPAR2024; 2 kb upstream; q < 0.05)",
-  display_numbers = TRUE,
-  number_format   = "%d",
-  number_color    = "black"
-)
+cairo_pdf(outfile, width = W_in, height = H_in, family = "Helvetica")
+do.call(pheatmap, c(plot_args, list(
+  main = "Fatores de transcrição em promotores de LRR-RLPs (JASPAR2024; 2 kb; q < 0.05)"
+)))
 dev.off()
-message("Figura salva: ", outfile, " (", nrow(mat), " genes × ", ncol(mat), " TFs)")
+message(sprintf("PDF publicacao: %s (%.0f x %.0f mm)", outfile, W_in*25.4, H_in*25.4))
 
-# PNG para preview
-png(sub("\\.pdf$",".png", outfile),
-    width = fig_w * 96, height = fig_h * 96, res = 150)
-pheatmap(
-  mat,
-  cluster_rows    = FALSE,
-  cluster_cols    = FALSE,
-  color           = colorRampPalette(c("#FFFFFF","#FFF3CD","#FF8C00","#7B241C"))(50),
-  border_color    = "grey85",
-  cellwidth       = 18,
-  cellheight      = 16,
-  fontsize        = 8,
-  fontsize_row    = 9,
-  fontsize_col    = 7.5,
-  angle_col       = 45,
-  annotation_col  = col_anno,
-  annotation_row  = row_anno,
-  annotation_colors = row_ann_cols,
-  main            = "Fatores de transcrição — LRR-RLP promotores (JASPAR2024)",
-  display_numbers = TRUE,
-  number_format   = "%d",
-  number_color    = "black"
-)
+png(sub("\\.pdf$",".png", outfile), width = W_in, height = H_in,
+    units = "in", res = 300, type = "cairo")
+do.call(pheatmap, c(plot_args, list(main = "FIMO — LRR-RLP TF binding sites (JASPAR2024)")))
 dev.off()
-message("PNG preview salvo: ", sub("\\.pdf$",".png", outfile))
+message("PNG 300 dpi: ", sub("\\.pdf$",".png", outfile))
+
+# ── Resumo ────────────────────────────────────────────────────────────────────
+cat("\n=== Top 20 TFs (genes com binding site) ===\n")
+presence <- colSums(mat > 0)
+sort(presence, decreasing = TRUE)[1:min(20, length(presence))] %>%
+  as.data.frame() %>% setNames("n_genes") %>% print()
+
+cat("\n=== Genes focais — TFs exclusivos ===\n")
+focal_rows <- rownames(mat)[rownames(mat) %in% gene_meta$label[gene_meta$focal]]
+for (r in focal_rows) {
+  specific <- names(which(mat[r,] > 0 & colSums(mat[-which(rownames(mat)==r),] > 0) == 0))
+  if (length(specific) > 0)
+    cat(sprintf("  %-24s: %s\n", r, paste(specific, collapse=", ")))
+}

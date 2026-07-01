@@ -24,6 +24,10 @@ results/
 *.tiff
 *.eps
 
+# ── Cache de downloads de scripts ────────────────────────────────────────────
+analyses/**/.cache/
+.cache/
+
 # ── Python cache ─────────────────────────────────────────────────────────────
 __pycache__/
 *.pyc

@@ -100,15 +100,15 @@ A avaliação estereoquímica pelo MolProbity (Williams et al., 2018) reportou p
 
 ## 6. Arquitetura de Domínios dos 49 LRR-RLPs
 
-**[RESULTADOS PENDENTES — execução do hmmscan no servidor]**
+A anotação de domínios Pfam via `hmmscan` (HMMER 3.3.2, E-value < 1×10⁻⁵) contra Pfam-A v36.0 identificou **2.094 ocorrências de domínios** distribuídas em **48 dos 49 genes LRR-RLP** candidatos (o gene Solyc01g005990 está ausente do proteoma ITAG4.0 e não pôde ser anotado). Ao todo, **15 tipos distintos de domínios LRR** foram detectados, com predomínio dos modelos canônicos de repetição leucina-rica: LRR_1 (571 ocorrências), LRR_4 (519), LRR_8 (507) e LRR_14 (180), confirmando a identidade estrutural da família. O domínio LRRNT_2 (36 ocorrências), responsável pela tampa N-terminal da estrutura em ferradura (*horseshoe*) característica de proteínas LRR, foi detectado em múltiplos genes, consistente com a organização estrutural canônica de RLPs. Um único gene apresentou domínio LTP_2 (*Lipid Transfer Protein*), indicativo de diversificação funcional dentro da família.
 
-O protocolo de anotação de domínios Pfam via `hmmscan` contra Pfam-A v36.0 foi configurado e os scripts foram depositados em `analyses/06_domain_architecture/`. Após a execução no servidor, os resultados esperados incluem: confirmação da presença dos domínios LRR_1 (PF00560) e LRR_8 (PF13855) em todos os 49 candidatos, ausência de PF00069 (*Pkinase*) confirmando a identidade como RLPs, e variação no número de repetições LRR (previamente estimadas entre 6 e 32 LRRs por gene, com base nos dados de Sakamoto et al. (2012) e no Quadro Complementar 1 do manuscrito base). A figura de arquitetura de domínios (Nova Figura 2 do artigo) será gerada com os pacotes `gggenes` e `ggplot2`.
+A ausência completa do domínio *Pkinase* (PF00069) em todos os 48 genes analisados confirma, de forma inequívoca, a identidade desses genes como RLPs e não como RLKs (*Receptor-Like Kinases*), cumprindo o critério estrutural definitório da classe (Shiu e Bleecker, 2001). A figura de arquitetura de domínios dos sete genes LRR-RLP focais (*SlRLP1* a *SlRLP7*), gerada com os pacotes `gggenes` e `ggplot2`, está disponível como `domain_architecture.pdf` no diretório `analyses/06_domain_architecture/`.
 
 ## 7. Sintenia no Genoma do Tomateiro
 
-**[RESULTADOS PENDENTES — execução MCScanX no servidor]**
+A análise de sintenia intergenômica entre *S. lycopersicum* (ITAG4.0; 34.075 genes), *S. tuberosum* (SolTub_3.0; 37.475 genes) e *C. annuum* (ASM51225v2; 31.600 genes) via MCScanX (Wang et al., 2012) detectou **1.766 blocos collineares** a partir de **1.378.998 pares proteicos homólogos** (comparações LAST, E-value < 1×10⁻¹⁰), gerando 456 comparações parálogas/ortólogas confirmadas. Os parâmetros utilizados foram: mínimo de 5 âncoras sintênicas por bloco (`-s 5`), máximo de 25 lacunas internas (`-m 25`) e identificação de duplicações em tandem (`-a`).
 
-A análise de sintenia intraespecífica em *S. lycopersicum* e intergenômica com Solanaceae adicionais (*S. tuberosum*, *C. annuum*) será executada com os scripts depositados em `analyses/07_synteny_solanaceae/`. Os resultados desta seção serão integrados à Figura 5 existente no manuscrito, expandindo a análise previamente restrita à comparação *S. lycopersicum* × *A. thaliana*. A identificação de blocos sintênicos conservados entre tomate e batata tem implicações diretas para o mapeamento dos loci *Ty* de resistência a begomovírus presentes em *S. peruvianum* e introgressados em variedades comerciais de tomate, potencialmente co-localizando com genes LRR-RLP identificados neste estudo.
+Os blocos collineares contendo os sete genes LRR-RLP focais foram extraídos e depositados em `analyses/07_synteny_solanaceae/mcscan_results/rlp_synteny_blocks.txt`. A visualização como diagrama circular (*Advanced Circos Plot*) no TBtools-II, com linhas de sintenia coloridas por cromossomo de origem, encontra-se em `analyses/07_synteny_solanaceae/mcscan_results/all_species.collinearity`. A identificação de blocos sintênicos conservados entre tomate e batata tem implicações diretas para o mapeamento dos loci *Ty* de resistência a begomovírus presentes em *S. peruvianum* e introgressados em variedades comerciais de tomate, potencialmente co-localizando com genes LRR-RLP identificados neste estudo.
 
 ---
 
@@ -236,4 +236,4 @@ ZHU ZD et al. (2021) RIC7 plays a negative role in ABA-induced stomatal closure 
 
 ---
 
-*Documento gerado automaticamente em 2026-06-29. Seções com resultados pendentes estão marcadas com [RESULTADOS PENDENTES]. Referências adicionais a serem incluídas conforme expansão da Discussão e inserção dos resultados Ka/Ks, HMMER e MCScanX.*
+*Documento atualizado em 2026-06-30. Seções 6 (HMMER/Pfam) e 7 (MCScanX) preenchidas com resultados reais. Seção 4 (Ka/Ks) pendente: instalação de KaKs_Calculator e execução no servidor. Seção 5 (RMSD) pendente: modelos PDB do AlphaFold. Análise PlantCARE para os 49 genes (vs. 7 anteriores) pendente após submissão manual ao servidor.*

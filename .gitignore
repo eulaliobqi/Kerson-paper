@@ -11,6 +11,8 @@ analyses/07_synteny_solanaceae/mcscan_results/
 results/
 
 # ── Outputs intermediários ─────────────────────────────────────────────────
+analyses/02_promoter_cis/plantcare_counts.csv
+analyses/06_domain_architecture/domain_counts.tsv
 *.log
 *.tmp
 /tmp/

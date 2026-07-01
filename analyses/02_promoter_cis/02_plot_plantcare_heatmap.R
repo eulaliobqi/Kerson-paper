@@ -1,10 +1,14 @@
 #!/usr/bin/env Rscript
-# Heatmap de elementos cis nos promotores (2kb) dos 7 genes LRR-RLP
-# Uso: Rscript 02_plot_plantcare_heatmap.R [plantcare_results.txt]
+# Heatmap de elementos cis nos promotores (2kb) dos 49 LRR-RLPs — PlantCARE
+# Uso:
+#   Rscript 02_plot_plantcare_heatmap.R plantcare_results_49genes.tab   # formato .tab per-gene
+#   Rscript 02_plot_plantcare_heatmap.R plantcare_results.txt            # formato .txt 7 genes
+#   Rscript 02_plot_plantcare_heatmap.R plantcare_counts_49genes.csv     # CSV pré-processado
 #
-# Formato do arquivo de entrada (PlantCARE download):
-#   Sequence <TAB> Signal <TAB> Location <TAB> Strand <TAB> Sequence <TAB> Function
-# Se o arquivo não existir, roda em modo DEMO com dados sintéticos.
+# Formatos suportados:
+#   .tab (sem header): seq::chrom | signal | seq_motif | location | len | strand | species | func
+#   .txt (com header): Sequence | Signal | Location | Strand | Seq | Function
+#   .csv             : gene | motif1 | motif2 | ...  (matriz já processada)
 
 suppressPackageStartupMessages({
   library(tidyverse)
@@ -53,16 +57,20 @@ gene_meta <- tibble(
 )
 
 # ── Dicionário de elementos cis por categoria funcional ───────────────────────
+# Nomes conforme nomenclatura real do PlantCARE (validados no output 49 genes)
 cis_dict <- list(
-  "Luminoso"         = c("ACE","Box 4","G-box","GT1-motif","I-box","Sp1","LAMP-element"),
-  "ABA / Seca"       = c("ABRE","CACGTG-motif","DRE core","MBS","MYB recognition"),
-  "JA"               = c("CGTCA-motif","TGACG-motif"),
-  "SA / Defesa"      = c("SARE","TCA-element","W-box","TC-rich repeats","TGA-element"),
-  "GA"               = c("GARE-motif","P-box","TATC-box"),
-  "Auxina"           = c("AuxRR-core","TGA-element"),
+  "Luz"              = c("ACE","Box 4","G-box","GT1-motif","I-box","Sp1","LAMP-element",
+                         "AE-box","AT1-motif","GCN4_motif","Ibox","TCT-motif","3-AF3 binding site"),
+  "ABA / Seca"       = c("ABRE","ABRE3a","ABRE4","AT~ABRE","CACGTG-motif","DRE core",
+                         "MBS","MYB recognition","Myb","MYB","MYB-like sequence","STRE"),
+  "JA"               = c("CGTCA-motif","TGACG-motif","as-1"),
+  "SA / Defesa"      = c("SARE","TCA-element","W box","W-box","TC-rich repeats",
+                         "TGA-element","TGA1a","ARE"),
+  "GA"               = c("GARE-motif","P-box","TATC-box","GARE","gibberellin-responsive element"),
   "Etileno"          = c("GCC-box","ERE"),
-  "Desenvolvimento"  = c("CAT-box","CCAAT-box","as-2-element"),
-  "Circadiano"       = c("circadian","Evening Element")
+  "Desenvolvimento"  = c("CAT-box","CCAAT-box","as-2-element","CAAT-box","AAGAA-motif"),
+  "Circadiano"       = c("circadian","Evening Element"),
+  "Anaerobiose"      = c("ARE","anaerobic")
 )
 
 cis_df <- tibble(
@@ -72,7 +80,7 @@ cis_df <- tibble(
 
 # ── Ler resultados do PlantCARE ───────────────────────────────────────────────
 args       <- commandArgs(trailingOnly = TRUE)
-input_file <- if (length(args) > 0) args[1] else "plantcare_results.txt"
+input_file <- if (length(args) > 0) args[1] else "plantcare_results_49genes.tab"
 
 if (!file.exists(input_file)) {
   message("[DEMO] Arquivo '", input_file, "' não encontrado — usando dados simulados")
@@ -80,18 +88,48 @@ if (!file.exists(input_file)) {
   results <- expand_grid(gene_id = gene_meta$gene_id,
                          motif   = cis_df$motif) %>%
     mutate(count = sample(c(rep(0L,4), 1L, 2L, 3L, 4L), n(), replace = TRUE))
-} else {
-  raw <- read_tsv(input_file, col_names = TRUE, show_col_types = FALSE)
 
-  # Renomear colunas (PlantCARE usa: Sequence, Signal, Location, Strand, Seq, Function)
-  colnames(raw) <- tolower(gsub("\\s+","_", colnames(raw)))
-  if (!"sequence" %in% colnames(raw)) stop("Coluna 'Sequence' não encontrada no arquivo.")
+} else if (grepl("\\.csv$", input_file, ignore.case = TRUE)) {
+  # Formato CSV: gene | motif1 | motif2 | ...
+  message("Lendo CSV pré-processado: ", input_file)
+  mat_csv <- read_csv(input_file, show_col_types = FALSE)
+  results <- mat_csv %>%
+    pivot_longer(-gene, names_to = "motif", values_to = "count") %>%
+    rename(gene_id = gene) %>%
+    filter(count > 0)
 
+} else if (grepl("\\.tab$", input_file, ignore.case = TRUE)) {
+  # Formato .tab sem header: seq::chrom | signal | seq_motif | location | len | strand | species | func
+  message("Lendo formato .tab per-gene: ", input_file)
+  raw <- read_tsv(input_file, col_names = c("seq_name","signal","seq_motif","location",
+                                             "len","strand","species","function"),
+                  col_types = cols(.default = "c"), comment = "#")
   results <- raw %>%
-    rename(gene_id = sequence, motif = signal) %>%
+    filter(!is.na(signal), signal != "") %>%
+    mutate(
+      gene_id = str_extract(seq_name, "^[^:]+"),   # Solyc... antes de ::
+      motif   = str_trim(signal)
+    ) %>%
+    filter(gene_id %in% gene_meta$gene_id) %>%
+    group_by(gene_id, motif) %>%
+    summarise(count = n(), .groups = "drop")
+
+} else {
+  # Formato .txt com header: Sequence | Signal | Location | Strand | Seq | Function
+  message("Lendo formato .txt com header: ", input_file)
+  raw <- read_tsv(input_file, col_names = TRUE, show_col_types = FALSE)
+  colnames(raw) <- tolower(gsub("\\s+","_", colnames(raw)))
+  if (!"sequence" %in% colnames(raw)) stop("Coluna 'Sequence' nao encontrada.")
+  results <- raw %>%
+    mutate(gene_id = str_extract(sequence, "^[^:]+")) %>%
+    rename(motif = signal) %>%
+    filter(!is.na(motif), motif != "") %>%
     group_by(gene_id, motif) %>%
     summarise(count = n(), .groups = "drop")
 }
+
+message("Hits lidos: ", sum(results$count), " | Genes: ", n_distinct(results$gene_id),
+        " | Motivos únicos: ", n_distinct(results$motif))
 
 # ── Construir matriz ──────────────────────────────────────────────────────────
 all_motifs <- cis_df$motif

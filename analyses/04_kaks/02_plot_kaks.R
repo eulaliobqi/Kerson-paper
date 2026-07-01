@@ -35,6 +35,8 @@ FOCAL_PAIRS <- c(
 
 df <- raw %>%
   mutate(
+    # BioPython escreve "GeneA_vs_GeneB"; normalizar para "GeneA-GeneB"
+    pair   = str_replace(pair, "_vs_", "-"),
     gene_A = str_extract(pair, "^[^-]+"),
     gene_B = str_extract(pair, "(?<=-).+"),
     chrom_A = str_extract(gene_A, "(?<=Solyc)\\d+"),

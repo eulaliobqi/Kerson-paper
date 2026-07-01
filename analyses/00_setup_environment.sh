@@ -50,41 +50,11 @@ mamba install -n "$ENV_NAME" -c conda-forge -c bioconda -y \
 mamba install -n "$ENV_NAME" -c conda-forge -y pymol-open-source || \
     echo "AVISO: pymol-open-source não instalado (opcional para Dia 5; pode instalar depois)"
 
-# KaKs_Calculator 2.0 — binário não disponível no conda; instalar manualmente
+# Ka/Ks — implementado via BioPython (NG86); nenhum executável externo necessário
+# O módulo Bio.codonalign.codonseq.cal_dn_ds já está incluído no biopython instalado acima
 echo ""
-echo "=== KaKs_Calculator 2.0 (Dia 4) ==="
-KAKS_BIN="$(conda run -n ${ENV_NAME} python3 -c "import sys; print(sys.prefix)")/bin/KaKs_Calculator"
-if [ ! -f "$KAKS_BIN" ]; then
-    echo "Baixando KaKs_Calculator 2.0..."
-    TMPDIR_KAKS=$(mktemp -d)
-    # Binário Linux 64-bit compilado (GitHub mirror)
-    wget -q -O "${TMPDIR_KAKS}/KaKs_Calculator2.0.tar.gz" \
-        "https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" \
-        --timeout=60 || true
-
-    if [ -f "${TMPDIR_KAKS}/KaKs_Calculator2.0.tar.gz" ]; then
-        tar -xzf "${TMPDIR_KAKS}/KaKs_Calculator2.0.tar.gz" -C "$TMPDIR_KAKS"
-        # Tentar compilar
-        SRC_DIR=$(find "$TMPDIR_KAKS" -maxdepth 3 -name "Makefile" | head -1 | xargs -r dirname)
-        if [ -n "$SRC_DIR" ]; then
-            make -C "$SRC_DIR" 2>/dev/null && \
-            cp "${SRC_DIR}/KaKs_Calculator" "$KAKS_BIN" && \
-            chmod +x "$KAKS_BIN" && \
-            echo "KaKs_Calculator instalado em: $KAKS_BIN" || true
-        fi
-        rm -rf "$TMPDIR_KAKS"
-    fi
-
-    # Fallback: yn00 do PAML como alternativa
-    if [ ! -f "$KAKS_BIN" ]; then
-        echo "KaKs_Calculator não compilado — instalando yn00 (PAML) como alternativa..."
-        mamba install -n "$ENV_NAME" -c bioconda -y paml 2>/dev/null && \
-            echo "yn00 disponível como alternativa a KaKs_Calculator" || \
-            echo "AVISO: instale KaKs_Calculator 2.0 manualmente (sourceforge.net/projects/kakscalculator2)"
-    fi
-else
-    echo "KaKs_Calculator já instalado."
-fi
+echo "=== Ka/Ks (Dia 4): BioPython NG86 já disponível no ambiente ==="
+mamba run -n "${ENV_NAME}" python3 -c "from Bio.codonalign import CodonAlignment; print('BioPython Ka/Ks OK')"
 
 echo ""
 echo "================================================================="

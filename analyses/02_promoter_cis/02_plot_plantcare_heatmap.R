@@ -187,9 +187,11 @@ ann_colors_full <- list(
 )
 
 # Gaps entre categorias funcionais
-gap_cols <- if (n_cats > 1)
-  cumsum(table(col_anno$Categoria)[unique(col_anno$Categoria)])[-n_cats]
-else integer(0)
+if (n_cats > 1) {
+  gap_cols <- cumsum(table(col_anno$Categoria)[unique(col_anno$Categoria)])[-n_cats]
+} else {
+  gap_cols <- integer(0)
+}
 
 # ── Dimensões de publicação — double-column (174 mm) ─────────────────────────
 # Não usar cellwidth/cellheight fixos: deixar pheatmap auto-escalar dentro da área

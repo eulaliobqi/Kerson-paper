@@ -14,6 +14,7 @@ suppressPackageStartupMessages({
   library(ggplot2)
   library(RColorBrewer)
   library(scales)
+  library(patchwork)   # para painel + legenda lateral se necessário
 })
 
 script_dir <- tryCatch(dirname(normalizePath(sys.frame(0)$ofile)), error = function(e) getwd())
@@ -195,17 +196,29 @@ p <- ggplot() +
     x       = "Posição na proteína (aa)",
     y       = NULL
   ) +
-  theme_bw(base_size = 9) +
+  theme_classic(base_size = 8) +
   theme(
-    legend.position  = "right",
-    panel.grid.minor = element_blank(),
-    axis.text.y      = element_text(
-      size  = 7.5,
-      face  = if_else(grepl("\\*", levels(dom_prep$label_f)[as.numeric(dom_prep$label_f)],
-                             fixed=FALSE), "bold", "plain")[1]
-    ),
-    plot.title    = element_text(size = 10, face = "bold"),
-    plot.subtitle = element_text(size = 8, color = "grey40")
+    legend.position   = "right",
+    legend.text       = element_text(size = 7),
+    legend.title      = element_text(size = 7.5, face = "bold"),
+    legend.key.height = unit(0.32, "cm"),
+    legend.key.width  = unit(0.45, "cm"),
+    axis.line.y       = element_blank(),
+    axis.ticks.y      = element_blank(),
+    axis.text.y       = element_text(size = 7, color = "grey15",
+                                      face = if_else(
+                                        grepl("\\*", gene_meta$label, fixed = FALSE),
+                                        "bold", "plain"
+                                      )[rev(seq_len(nrow(gene_meta)))]),
+    axis.text.x       = element_text(size = 7.5),
+    axis.line.x       = element_line(linewidth = 0.35),
+    axis.ticks.x      = element_line(linewidth = 0.35),
+    panel.grid.major.x = element_line(linewidth = 0.2, color = "grey92"),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    plot.title    = element_text(size = 9, face = "bold"),
+    plot.subtitle = element_text(size = 7.5, color = "grey45"),
+    plot.margin   = margin(3, 4, 3, 3, "mm")
   )
 
 # Negrito nos genes focais via after_scale não é direto no theme;
@@ -213,11 +226,24 @@ p <- ggplot() +
 focal_labels <- gene_meta %>% filter(focal) %>%
   mutate(label_f = factor(label, levels = rev(gene_meta$label)))
 
-# ── Salvar ────────────────────────────────────────────────────────────────────
-ggsave("domain_architecture.pdf", p, width = 14, height = fig_h)
-message("Figura salva: domain_architecture.pdf")
-ggsave("domain_architecture.png", p, width = 14, height = fig_h, dpi = 200)
-message("PNG salvo: domain_architecture.png")
+# ── Salvar — qualidade de publicação ─────────────────────────────────────────
+# Largura: 88 mm (single column) ou 174 mm (double column)
+# Para 49 genes: double column, altura dinâmica
+W_mm  <- 174
+W_in  <- W_mm / 25.4          # 6.85 pol
+H_in  <- max(8, fig_h)        # altura dinâmica
+
+cairo_pdf("domain_architecture.pdf", width = W_in, height = H_in, family = "Helvetica")
+print(p)
+dev.off()
+message(sprintf("PDF publicação: domain_architecture.pdf (%.0f × %.0f mm)",
+                W_mm, H_in * 25.4))
+
+png("domain_architecture.png", width = W_in, height = H_in,
+    units = "in", res = 300, type = "cairo")
+print(p)
+dev.off()
+message("PNG 300 dpi: domain_architecture.png")
 
 # ── Tabela de contagem — todos os 49 genes ────────────────────────────────────
 summary_tbl <- dom_prep %>%

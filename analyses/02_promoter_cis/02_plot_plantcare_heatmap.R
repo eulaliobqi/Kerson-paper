@@ -130,33 +130,73 @@ cat_cols <- setNames(
   unique(col_anno$Categoria)
 )
 
-# ── Plot ──────────────────────────────────────────────────────────────────────
-outfile <- "plantcare_heatmap.pdf"
-pdf(outfile, width = max(14, ncol(mat) * 0.55 + 4), height = 6)
+# ── Anotação de linhas: destacar genes focais ─────────────────────────────────
+focal_ids  <- c("Solyc05g055190","Solyc03g112680","Solyc05g009990",
+                "Solyc12g042760","Solyc02g072250","Solyc02g092040","Solyc10g007830")
+focal_labs <- gene_meta %>%
+  filter(gene_id %in% focal_ids) %>%
+  pull(label)
 
-pheatmap(
-  mat,
-  cluster_rows  = FALSE,
-  cluster_cols  = FALSE,
-  color         = colorRampPalette(c("#FFFFFF","#FFF3CD","#FF8C00","#C0392B"))(60),
-  border_color  = "grey75",
-  cellwidth     = 20,
-  cellheight    = 24,
-  fontsize       = 9,
-  fontsize_row   = 10,
-  fontsize_col   = 8,
-  angle_col      = 45,
-  annotation_col = col_anno,
-  annotation_colors = list(Categoria = cat_cols),
-  main           = "Elementos cis regulatórios em promotores de LRR-RLPs (2 kb upstream)",
-  display_numbers = TRUE,
-  number_format   = "%d",
-  number_color    = "black",
-  gaps_col = cumsum(table(col_anno$Categoria)[unique(col_anno$Categoria)])[-n_cats]
+row_anno <- data.frame(
+  Focal = ifelse(rownames(mat) %in% focal_labs, "Focal", "Não focal"),
+  row.names = rownames(mat)
+)
+ann_colors_full <- list(
+  Categoria = cat_cols,
+  Focal     = c("Focal" = "#2C3E50", "Não focal" = "#ECF0F1")
 )
 
+# Gaps entre categorias funcionais
+gap_cols <- cumsum(table(col_anno$Categoria)[unique(col_anno$Categoria)])[-n_cats]
+
+# ── Plot qualidade de publicação ──────────────────────────────────────────────
+fig_w   <- max(12, ncol(mat) * 0.50 + 4)
+fig_h   <- max(10, nrow(mat) * 0.24 + 3)
+outfile <- "plantcare_heatmap.pdf"
+
+cairo_pdf(outfile, width = fig_w, height = fig_h, family = "Helvetica")
+pheatmap(
+  mat,
+  cluster_rows      = FALSE,
+  cluster_cols      = FALSE,
+  color             = colorRampPalette(c("#FFFFFF","#FFF3CD","#FF8C00","#7B241C"))(60),
+  border_color      = "grey80",
+  cellwidth         = 18,
+  cellheight        = 16,
+  fontsize          = 8,
+  fontsize_row      = 8.5,
+  fontsize_col      = 7.5,
+  angle_col         = 45,
+  annotation_col    = col_anno,
+  annotation_row    = row_anno,
+  annotation_colors = ann_colors_full,
+  annotation_names_col = TRUE,
+  annotation_names_row = FALSE,
+  main              = "Elementos cis-regulatórios em promotores de LRR-RLPs (2 kb upstream, PlantCARE)",
+  display_numbers   = TRUE,
+  number_format     = "%d",
+  number_color      = "black",
+  gaps_col          = gap_cols
+)
 dev.off()
-message("Heatmap salvo: ", outfile)
+message(sprintf("PDF publicação: %s (%.0f × %.0f mm)", outfile, fig_w*25.4, fig_h*25.4))
+
+png(sub("\\.pdf$",".png", outfile),
+    width = fig_w, height = fig_h, units = "in", res = 300, type = "cairo")
+pheatmap(
+  mat,
+  cluster_rows      = FALSE, cluster_cols = FALSE,
+  color             = colorRampPalette(c("#FFFFFF","#FFF3CD","#FF8C00","#7B241C"))(60),
+  border_color      = "grey80", cellwidth = 18, cellheight = 16,
+  fontsize = 8, fontsize_row = 8.5, fontsize_col = 7.5, angle_col = 45,
+  annotation_col = col_anno, annotation_row = row_anno,
+  annotation_colors = ann_colors_full,
+  main = "Elementos cis-regulatórios — LRR-RLPs (PlantCARE)",
+  display_numbers = TRUE, number_format = "%d", number_color = "black",
+  gaps_col = gap_cols
+)
+dev.off()
+message("PNG 300 dpi: ", sub("\\.pdf$",".png", outfile))
 
 # ── Resumo ────────────────────────────────────────────────────────────────────
 cat("\n=== Top elementos cis (presentes em ≥2 genes) ===\n")

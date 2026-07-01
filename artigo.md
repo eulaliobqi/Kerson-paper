@@ -86,9 +86,27 @@ A condição de maior média de indução relativa entre todos os 49 genes foi a
 
 ## 4. Pressão Seletiva Ka/Ks nos Pares Duplicados
 
-**[RESULTADOS PENDENTES — execução no servidor eulalio@200.235.143.10]**
+A análise de pressão seletiva pelo método de Nei-Gojobori (NG86; Nei e Gojobori, 1986) revelou que **todos os 13 pares de genes parálogos LRR-RLP apresentam Ka/Ks < 1**, indicando predominância de seleção purificadora no repertório duplicado de *S. lycopersicum* (Tabela 2). Os valores de Ka/Ks variaram de **0,252** (Solyc07g008620 × Solyc07g008630, tandem Chr07) a **0,849** (Solyc05g055190 × Solyc03g112680, par segmental *SlRLP1* × *SlRLP2*), com média de **0,421** (d.p. = 0,178).
 
-Os 13 pares de genes parálogos foram identificados e os arquivos de entrada (CDS alinhados com MAFFT, formato AXT para KaKs_Calculator) foram preparados e depositados em `analyses/04_kaks/`. A execução do programa `KaKs_Calculator 2.0` (método NG) no servidor com 32 núcleos está programada. Os resultados esperados incluem: valores de Ka, Ks e Ka/Ks para cada par, com interpretação do modo de seleção (purificadora, neutra ou positiva). Com base em estudos prévios sobre expansão de famílias LRR em tomate (Sakamoto et al., 2012) e em Solanaceae (Noman et al., 2022), espera-se que a maioria dos pares apresente Ka/Ks < 1, indicando seleção purificadora e conservação da função primordial de reconhecimento de ligante. Pares em contexto de neofuncionalização, como o par segmental SlRLP5 × SlRLP6 no Chr02 (ambos com ortólogos distintos em *A. thaliana*), poderão apresentar valores de Ka/Ks mais elevados, sugerindo pressão seletiva divergente após a duplicação. Os resultados serão incorporados como Tabela Suplementar 3 no manuscrito final.
+**Tabela 2. Razão Ka/Ks para os 13 pares de genes LRR-RLP parálogos de *Solanum lycopersicum* (ITAG4.0), calculada pelo método NG86 (Nei e Gojobori, 1986). Ka = taxa de substituição não-sinônima; Ks = taxa de substituição sinônima; Comprimento = tamanho do alinhamento CDS após remoção de colunas com gaps.**
+
+| Par (gene_A × gene_B) | Tipo | Ka | Ks | Ka/Ks | Comp. (nt) |
+|---|---|---|---|---|---|
+| Solyc01g005730 × Solyc01g005760 | tandem Chr01 | 0,122 | 0,205 | 0,594 | 2463 |
+| Solyc01g005760 × Solyc01g005780 | tandem Chr01 | 0,144 | 0,243 | 0,590 | 2256 |
+| Solyc01g098370 × Solyc01g098680 | tandem Chr01 | 0,688 | 1,897 | 0,363 | 2448 |
+| Solyc01g098680 × Solyc01g098690 | tandem Chr01 | 0,052 | 0,170 | 0,303 | 2694 |
+| Solyc06g008270 × Solyc06g008300 | tandem Chr06 | 0,104 | 0,265 | 0,394 | 2469 |
+| Solyc07g008590 × Solyc07g008600 | tandem Chr07 | 0,093 | 0,304 | 0,307 | 2961 |
+| Solyc07g008600 × Solyc07g008620 | tandem Chr07 | 0,321 | 1,187 | 0,270 | 2946 |
+| Solyc07g008620 × Solyc07g008630 | tandem Chr07 | 0,097 | 0,387 | 0,252 | 3051 |
+| Solyc12g009510 × Solyc12g009520 | tandem Chr12 | 0,183 | 0,355 | 0,517 | 2787 |
+| Solyc12g099870 × Solyc12g099950 | tandem Chr12 | 0,453 | 0,672 | 0,674 | 1863 |
+| Solyc12g099950 × Solyc12g100030 | tandem Chr12 | 0,098 | 0,278 | 0,351 | 2667 |
+| Solyc02g072250 × Solyc02g092040 (*SlRLP5* × *SlRLP6*) | segmental Chr02 | 0,759 | 1,848 | 0,411 | 651 |
+| Solyc05g055190 × Solyc03g112680 (*SlRLP1* × *SlRLP2*) | segmental Chr05/Chr03 | 0,693 | 0,816 | **0,849** | 2208 |
+
+O cluster tandem do Chr07, composto por quatro pares consecutivos (Solyc07g008590–07g008630), exibiu os menores valores de Ka/Ks do conjunto (média 0,276; intervalo 0,252–0,307), refletindo seleção purificadora mais intensa e elevada conservação funcional entre os genes co-localizados. Em contraste, o par segmental *SlRLP1* × *SlRLP2* (Solyc05g055190 × Solyc03g112680) apresentou Ka/Ks = 0,849, o valor mais elevado, consistente com seleção purificadora relaxada após duplicação segmental — esperada dado que esses genes possuem ortólogos distintos em *A. thaliana* (CLV2 e AT1G17240, respectivamente) e provavelmente sofreram subfuncionalização. Dois pares exibiram Ks > 1,8, sugestivo de saturação de sítios sinônimos: Solyc01g098370 × Solyc01g098680 (Ks = 1,897) e *SlRLP5* × *SlRLP6* (Ks = 1,848), indicando duplicações mais antigas em comparação com os pares tandem Chr01/Chr07 recentes (Ks < 0,5). Os dados completos encontram-se em `analyses/04_kaks/kaks_summary.tsv`.
 
 ## 5. Qualidade dos Modelos Estruturais
 

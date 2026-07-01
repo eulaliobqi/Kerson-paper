@@ -28,7 +28,7 @@ Nota: Os dados primários do banco *Tomato Functional Genomics Database* (TFGD; 
 
 ## 4. Análise de Pressão Seletiva (Ka/Ks)
 
-Para avaliar o modo de evolução dos genes LRR-RLP duplicados em *S. lycopersicum*, foram identificados 13 pares de genes parálogos a partir da análise de sintenia intraespecífica (Seção 7). As sequências codificantes (CDS) de cada par foram obtidas do proteoma ITAG4.0 e alinhadas com o programa MAFFT (v7.526, parâmetros `--auto`; Katoh e Standley, 2013). As razões de substituição não-sinônima por sinônima (Ka/Ks, também referido como dN/dS) foram calculadas pelo programa `yn00` integrante do pacote PAML 4.9 (Yang, 2007), utilizando o método de Yang e Nielsen (2000). Pares com Ka/Ks < 1 foram interpretados como sob seleção purificadora (conservação funcional); Ka/Ks > 1 indica seleção positiva (neofuncionalização); Ka/Ks ≈ 1 sugere evolução neutra. Os 13 pares identificados distribuem-se nos seguintes cromossomos: Chr01 (5 pares em tandem: Solyc01g005730 a Solyc01g106500), Chr06 (2 pares em tandem), Chr07 (4 pares em tandem, cluster compacto), Chr12 (2 pares em tandem) e Chr02 (1 par segmental: Solyc02g072250 × Solyc02g092040, correspondente a SlRLP5 × SlRLP6). Os scripts de execução e o arquivo `gene_pairs.tsv` encontram-se em `analyses/04_kaks/`.
+Para avaliar o modo de evolução dos genes LRR-RLP duplicados em *S. lycopersicum*, foram identificados 13 pares de genes parálogos a partir da análise de sintenia intraespecífica (Seção 7). As sequências codificantes (CDS) de cada par foram obtidas do proteoma ITAG4.0 e alinhadas com o programa MAFFT (v7.526, parâmetros `--auto`; Katoh e Standley, 2013). As razões de substituição não-sinônima por sinônima (Ka/Ks, também referido como dN/dS) foram calculadas pelo programa `KaKs_Calculator 2.0` (Zhang et al., 2006), utilizando o método de Nei-Gojobori (NG; Nei e Gojobori, 1986). Pares com Ka/Ks < 1 foram interpretados como sob seleção purificadora (conservação funcional); Ka/Ks > 1 indica seleção positiva (neofuncionalização); Ka/Ks ≈ 1 sugere evolução neutra. Os 13 pares identificados distribuem-se nos seguintes cromossomos: Chr01 (5 pares em tandem: Solyc01g005730 a Solyc01g106500), Chr06 (2 pares em tandem), Chr07 (4 pares em tandem, cluster compacto), Chr12 (2 pares em tandem) e Chr02 (1 par segmental: Solyc02g072250 × Solyc02g092040, correspondente a SlRLP5 × SlRLP6). Os scripts de execução e o arquivo `gene_pairs.tsv` encontram-se em `analyses/04_kaks/`.
 
 ## 5. Qualidade dos Modelos Estruturais
 
@@ -40,7 +40,7 @@ As sequências proteicas deduzidas dos 49 candidatos LRR-RLP identificados por S
 
 ## 7. Sintenia no Genoma do Tomateiro
 
-A análise de sintenia intraespecífica de *S. lycopersicum* (ITAG4.0 × ITAG4.0) foi conduzida com o programa MCScanX (Wang et al., 2012) integrado ao software TBtools-II (Chen et al., 2023). O arquivo de genes colineares foi gerado a partir dos resultados de alinhamento BLASTP (E-value < 1×10⁻⁵, *top hits* = 5) entre o proteoma de *S. lycopersicum* contra si mesmo, seguido pela detecção de blocos sintênicos com os parâmetros padrão do MCScanX (`-s 5 -m 25`). Os 49 genes LRR-RLP foram marcados nos blocos sintênicos detectados para identificação de pares duplicados por duplicação em tandem (genes adjacentes no mesmo bloco) e por duplicação segmental (genes em blocos distintos). A visualização foi gerada como diagrama circular (*Advanced Circos Plot*) no TBtools-II, com linhas de sintenia coloridas por cromossomo de origem. Para análise expandida de sintenia intergenômica com outras Solanaceae (batata, *Solanum tuberosum* DM v6.1; pimenta, *Capsicum annuum* Zunla-1), o mesmo protocolo MCScanX foi aplicado com arquivos de anotação GFF3 obtidos do SGN e Pepper Genome Platform, respectivamente. Os scripts de execução encontram-se em `analyses/07_synteny_solanaceae/`.
+A análise de sintenia intergenômica de *S. lycopersicum* (ITAG4.0) com *S. tuberosum* (SolTub_3.0) e *Capsicum annuum* (ASM51225v2) foi conduzida com o programa MCScanX (Wang et al., 2012), com visualização no TBtools-II (Chen et al., 2023). O arquivo de pares homólogos foi gerado por alinhamento proteico com LAST (`lastal -f BlastTab`, E-value < 1×10⁻¹⁰; Kiełbasa et al., 2011) entre os proteomas das três espécies, seguido pela detecção de blocos sintênicos com o MCScanX (parâmetros: `-a -e 1e-10 -s 5 -m 25 -w 5`). Os 49 genes LRR-RLP foram marcados nos blocos sintênicos detectados para identificação de pares duplicados por duplicação em tandem (genes adjacentes no mesmo bloco) e por duplicação segmental (genes em blocos distintos). A visualização foi gerada como diagrama circular (*Advanced Circos Plot*) no TBtools-II, com linhas de sintenia coloridas por cromossomo de origem. Os arquivos de anotação GFF3 e proteomas foram obtidos do EnsemblPlants (release 61) para batata (*S. tuberosum* SolTub_3.0) e pimenta (*C. annuum* ASM51225v2); o proteoma e GFF do tomateiro foram obtidos do SGN (ITAG4.0). Os scripts de execução encontram-se em `analyses/07_synteny_solanaceae/`.
 
 ---
 
@@ -88,7 +88,7 @@ A condição de maior média de indução relativa entre todos os 49 genes foi a
 
 **[RESULTADOS PENDENTES — execução no servidor eulalio@200.235.143.10]**
 
-Os 13 pares de genes parálogos foram identificados e os arquivos de entrada (CDS alinhados com MAFFT, arquivos de controle do PAML) foram preparados e depositados em `analyses/04_kaks/`. A execução do programa `yn00` (PAML 4.9) no servidor com 32 núcleos e 16 GB de RAM da GPU RTX 5070 Ti está programada. Os resultados esperados incluem: valores de Ka, Ks e Ka/Ks para cada par, com interpretação do modo de seleção (purificadora, neutra ou positiva). Com base em estudos prévios sobre expansão de famílias LRR em tomate (Sakamoto et al., 2012) e em Solanaceae (Noman et al., 2022), espera-se que a maioria dos pares apresente Ka/Ks < 1, indicando seleção purificadora e conservação da função primordial de reconhecimento de ligante. Pares em contexto de neofuncionalização, como o par segmental SlRLP5 × SlRLP6 no Chr02 (ambos com ortólogos distintos em *A. thaliana*), poderão apresentar valores de Ka/Ks mais elevados, sugerindo pressão seletiva divergente após a duplicação. Os resultados serão incorporados como Tabela Suplementar 3 no manuscrito final.
+Os 13 pares de genes parálogos foram identificados e os arquivos de entrada (CDS alinhados com MAFFT, formato AXT para KaKs_Calculator) foram preparados e depositados em `analyses/04_kaks/`. A execução do programa `KaKs_Calculator 2.0` (método NG) no servidor com 32 núcleos está programada. Os resultados esperados incluem: valores de Ka, Ks e Ka/Ks para cada par, com interpretação do modo de seleção (purificadora, neutra ou positiva). Com base em estudos prévios sobre expansão de famílias LRR em tomate (Sakamoto et al., 2012) e em Solanaceae (Noman et al., 2022), espera-se que a maioria dos pares apresente Ka/Ks < 1, indicando seleção purificadora e conservação da função primordial de reconhecimento de ligante. Pares em contexto de neofuncionalização, como o par segmental SlRLP5 × SlRLP6 no Chr02 (ambos com ortólogos distintos em *A. thaliana*), poderão apresentar valores de Ka/Ks mais elevados, sugerindo pressão seletiva divergente após a duplicação. Os resultados serão incorporados como Tabela Suplementar 3 no manuscrito final.
 
 ## 5. Qualidade dos Modelos Estruturais
 
@@ -178,6 +178,8 @@ JAMIESON PA et al. (2018) The plant cell surface molecular cypher: receptor-like
 
 KATOH K; STANDLEY DM (2013) MAFFT multiple sequence alignment software version 7: improvements in performance and usability. *Molecular Biology and Evolution* 30:772–780.
 
+KIELBASA SM et al. (2011) Adaptive seeds tame genomic sequence comparison. *Genome Research* 21:487–493.
+
 KOBE B; KAJAVA AV (2001) The leucine-rich repeat as a protein recognition motif. *Current Opinion in Structural Biology* 11:725–732.
 
 KOLDE R (2019) pheatmap: Pretty Heatmaps. R package version 1.0.12. Disponível em: https://CRAN.R-project.org/package=pheatmap.
@@ -191,6 +193,8 @@ LIN G et al. (2017) A receptor-like protein acts as a specificity switch for the
 LORENZO O et al. (2003) JASMONATE-INSENSITIVE1 encodes a MYC transcription factor essential to discriminate between different jasmonate-regulated defense responses in Arabidopsis. *Plant Cell* 15:1560–1574.
 
 MISTRY J et al. (2021) Pfam: The protein families database in 2021. *Nucleic Acids Research* 49:D412–D419.
+
+NEI M; GOJOBORI T (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. *Molecular Biology and Evolution* 3:418–426.
 
 NGOU BPM et al. (2024) Evolutionary trajectory of pattern recognition receptors in plants. *Nature Communications* 15:308.
 
@@ -224,13 +228,11 @@ WATERHOUSE A et al. (2018) SWISS-MODEL: homology modelling of protein structures
 
 WILLIAMS CJ et al. (2018) MolProbity: More and better reference data for improved all-atom structure validation. *Protein Science* 27:293–315.
 
-YANG Z (2007) PAML 4: Phylogenetic analysis by maximum likelihood. *Molecular Biology and Evolution* 24:1586–1591.
-
-YANG Z; NIELSEN R (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. *Molecular Biology and Evolution* 17:32–43.
-
 YANG Y et al. (2023) Genome-wide identification and expression analysis of the *NBS-LRR* gene family in *Solanum lycopersicum* during disease resistance. *Frontiers in Genetics* 13:931580.
 
 ZHANG Y et al. (2010) Arabidopsis *snc2-1D* activates receptor-like protein-mediated immunity transduced through WRKY70. *Plant Cell* 22:3153–3163.
+
+ZHANG Z et al. (2006) KaKs_Calculator: calculating Ka and Ks through model selection and model averaging. *Genomics, Proteomics & Bioinformatics* 4:259–263.
 
 ZHU ZD et al. (2021) RIC7 plays a negative role in ABA-induced stomatal closure through inhibiting ROP2 activity in *Arabidopsis*. *Plant Signaling & Behavior* 16:1876379.
 

@@ -67,7 +67,7 @@ gene_meta <- tibble(
     rep(FALSE,12),
     TRUE,FALSE,                 # 38-39 (38 é focal? na lista original é Seca/Vírus)
     FALSE,
-    rep(FALSE,4),TRUE,rep(FALSE,3)  # 45 é TMM/focal
+    rep(FALSE,4),TRUE,rep(FALSE,4)  # 45 é TMM/focal; 46-49 FALSE
   )
 )
 

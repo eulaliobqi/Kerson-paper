@@ -24,7 +24,8 @@ input_file <- if (length(args) > 0) args[1] else "kaks_summary.tsv"
 if (!file.exists(input_file)) stop("Arquivo não encontrado: ", input_file)
 
 raw <- read_tsv(input_file, show_col_types = FALSE)
-colnames(raw) <- c("pair","method","Ka","Ks","KaKs","pvalue","length")
+# TSV tem 8 colunas: pair sequence method ka ks ka_ks pvalue len
+colnames(raw) <- c("pair","sequence","method","Ka","Ks","KaKs","pvalue","length")
 
 # Pares focais para anotação
 FOCAL_PAIRS <- c(

@@ -46,8 +46,12 @@ domain_colors <- c(
 )
 
 # ── Carregar dados ────────────────────────────────────────────────────────────
+script_dir <- dirname(normalizePath(sys.frame(0)$ofile, mustWork=FALSE))
+if (is.null(script_dir) || script_dir == "") script_dir <- getwd()
+
 args       <- commandArgs(trailingOnly = TRUE)
-input_file <- if (length(args) > 0) args[1] else "hmmer_domains.tsv"
+input_file <- if (length(args) > 0) args[1] else file.path(script_dir, "hmmer_out/hmmer_domains.tsv")
+setwd(script_dir)
 
 if (!file.exists(input_file)) {
   message("[DEMO] Gerando dados sintéticos de domínios LRR-RLP...")
@@ -91,6 +95,16 @@ if (!file.exists(input_file)) {
   dom <- bind_rows(demo_rows)
 } else {
   dom <- read_tsv(input_file, show_col_types = FALSE)
+  # Normalizar nomes de colunas: hmmer TSV usa ali_start/ali_end;
+  # demo usa start/end. Garantir compatibilidade.
+  if ("ali_start" %in% colnames(dom)) {
+    dom <- dom %>% rename(start = ali_start, end = ali_end)
+  }
+  if ("protein_len" %in% colnames(dom)) {
+    # OK
+  } else if ("query_len" %in% colnames(dom)) {
+    dom <- dom %>% rename(protein_len = query_len)
+  }
 }
 
 # ── Filtrar e preparar ────────────────────────────────────────────────────────
@@ -105,10 +119,10 @@ if (nrow(focal_only) == 0) {
 focal_only <- focal_only %>%
   mutate(
     dom_group = case_when(
-      str_detect(domain, "^LRR")      ~ domain,
-      str_detect(domain, "ignal")     ~ "Signal_pep",
-      str_detect(domain, "TM|Trans|Hydro") ~ "Transmembrane",
-      TRUE                            ~ "other"
+      str_detect(domain, "^LRR")          ~ domain,
+      str_detect(domain, "ignal")         ~ "Signal_pep",
+      str_detect(domain, "TM|Trans|Hydro")~ "Transmembrane",
+      TRUE                                ~ "other"
     ),
     gene_label = gene_labels[gene_id],
     gene_label = factor(gene_label, levels = rev(gene_labels[gene_order]))

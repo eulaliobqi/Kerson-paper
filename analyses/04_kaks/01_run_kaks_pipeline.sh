@@ -151,11 +151,27 @@ for a, b in zip(seq1, seq2):
         clean2 += b
 
 # Ajustar para multiplo de 3
-L = (min(len(clean1), len(clean2)) // 3) * 3
-clean1, clean2 = clean1[:L], clean2[:L]
+L_init = (min(len(clean1), len(clean2)) // 3) * 3
+clean1, clean2 = clean1[:L_init], clean2[:L_init]
+
+# Remover codons com stop codon em qualquer uma das sequencias
+# ITAG4.0 inclui stop codon no CDS; cal_dn_ds nao aceita stop codons
+STOP_CODONS = {'TAA', 'TAG', 'TGA'}
+c1_codons = [clean1[i:i+3] for i in range(0, L_init, 3)]
+c2_codons = [clean2[i:i+3] for i in range(0, L_init, 3)]
+pairs = [(a, b) for a, b in zip(c1_codons, c2_codons)
+         if a not in STOP_CODONS and b not in STOP_CODONS]
+
+if not pairs:
+    print("ERRO: nenhum codon valido apos remover stop codons", file=sys.stderr)
+    sys.exit(1)
+
+clean1 = ''.join(a for a, b in pairs)
+clean2 = ''.join(b for a, b in pairs)
+L = len(clean1)
 
 if L < 3:
-    print("ERRO: sequencia apos remocao de gaps tem menos de 3 nt", file=sys.stderr)
+    print("ERRO: sequencia apos remocao de gaps/stops tem menos de 3 nt", file=sys.stderr)
     sys.exit(1)
 
 try:

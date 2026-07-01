@@ -10,7 +10,7 @@
 #   Ka/Ks ≈ 1  → evolução neutra
 #   Ka/Ks > 1  → seleção positiva (neofuncionalização)
 
-gene_A	gene_B	tipo	evidencia
+#gene_A	gene_B	tipo	evidencia
 Solyc01g005730	Solyc01g005760	tandem	IDs consecutivos no chr01; cluster LRR tandem
 Solyc01g005760	Solyc01g005780	tandem	IDs consecutivos no chr01; cluster LRR tandem
 Solyc01g098370	Solyc01g098680	tandem	IDs próximos no chr01; separados por ~300 kb
